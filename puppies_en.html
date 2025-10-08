@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Puppies — Lakshmi Love</title>
+<meta name="description" content="Upcoming Yorkshire Terrier puppies from Lakshmi Love kennel." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet" />
+<style>
+:root { --color-bg:#fdf9f6; --color-accent:#d4a373; --color-accent-dark:#c07b50; --color-text:#3b2f2f; --radius:26px; --max-width:1180px; --transition:.35s cubic-bezier(.4,0,.2,1); --shadow-soft:0 8px 28px -6px rgba(0,0,0,.08),0 2px 6px -1px rgba(0,0,0,.06); --font-body:'Manrope',system-ui,sans-serif; --font-heading:'Prata',serif; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:var(--font-body); background:radial-gradient(circle at 40% 25%,#fff 0,#fdf2ec 55%,#f9e5d6 100%); color:var(--color-text); opacity:0; }
+body.page-ready { opacity:1; transition:opacity .55s ease; }
+header { position:fixed; top:0; left:0; right:0; background:rgba(255,255,255,.75); backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.06); display:flex; align-items:center; height:68px; z-index:40; }
+.nav-inner { max-width:var(--max-width); margin:0 auto; width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 1.4rem; }
+.brand { font-family:var(--font-heading); font-size:1.85rem; letter-spacing:.75px; display:flex; gap:.4rem; align-items:center; }
+.brand span { color:var(--color-accent-dark); }
+nav { display:flex; align-items:center; }
+nav ul { list-style:none; margin:0; padding:0; display:flex; gap:1rem; flex-wrap:wrap; }
+nav a { text-decoration:none; color:var(--color-text); font-weight:500; position:relative; padding:.45rem .3rem; font-size:.85rem; letter-spacing:.5px; }
+nav a::after { content:""; position:absolute; left:50%; bottom:0; height:2px; width:0; background:var(--color-accent-dark); transform:translateX(-50%); transition:var(--transition); }
+nav a:hover::after { width:70%; }
+.lang-switch { display:flex; align-items:center; gap:.45rem; font-size:.7rem; letter-spacing:1px; text-transform:uppercase; background:rgba(255,255,255,.55); padding:.4rem .65rem; border-radius:30px; border:1px solid rgba(0,0,0,.08); backdrop-filter:blur(8px); margin-left:1.2rem; }
+.lang-switch a { text-decoration:none; color:#5c4c4c; font-weight:600; padding:.15rem .35rem; }
+.lang-switch a.active { color:var(--color-accent-dark); }
+.menu-toggle { display:none; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); width:44px; height:44px; border-radius:12px; cursor:pointer; align-items:center; justify-content:center; position:relative; }
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after { content:""; display:block; width:20px; height:2px; background:#5c4c4c; position:absolute; transition:.4s cubic-bezier(.4,0,.2,1); }
+.menu-toggle span::before { top:-6px; }
+.menu-toggle span::after { top:6px; }
+.menu-toggle.active span { background:transparent; }
+.menu-toggle.active span::before { top:0; transform:rotate(45deg); }
+.menu-toggle.active span::after { top:0; transform:rotate(-45deg); }
+.nav-collapsible { display:flex; align-items:center; gap:1.2rem; }
+@media (max-width:860px){
+  .menu-toggle { display:flex; }
+  .nav-collapsible { position:fixed; top:68px; right:0; width:100%; max-width:360px; background:rgba(255,255,255,.85); backdrop-filter:blur(14px); flex-direction:column; align-items:flex-start; padding:1.6rem 1.4rem 2.2rem; box-shadow:0 28px 46px -18px rgba(0,0,0,.28); border-left:1px solid rgba(0,0,0,.06); transform:translateX(100%); transition:.55s cubic-bezier(.4,0,.2,1); height:calc(100vh - 68px); overflow-y:auto; }
+  .nav-collapsible.open { transform:translateX(0); }
+  nav ul { flex-direction:column; width:100%; gap:.4rem; }
+  nav a { display:block; padding:.65rem 0; }
+  .lang-switch { margin:.6rem 0 0; align-self:stretch; justify-content:flex-start; }
+}
+main { min-height:calc(100vh - 68px); padding:clamp(3.8rem,6.2vw,5.5rem) 1.4rem 4rem; position:relative; }
+.container { max-width:var(--max-width); margin:0 auto; }
+h1 { font-family:var(--font-heading); font-weight:400; font-size:clamp(2.15rem,4.4vw,3.15rem); margin:0 0 1.2rem; line-height:1.12; letter-spacing:.65px; }
+.lead { font-size:1.05rem; line-height:1.58; max-width:780px; }
+.coming-wrapper { margin-top:2.2rem; display:grid; gap:2.2rem; align-items:start; }
+.panel { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:40px; padding:2.2rem clamp(1.4rem,3vw,2.5rem) 2.6rem; position:relative; overflow:hidden; box-shadow:var(--shadow-soft); }
+.panel::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 20% 18%,rgba(212,163,115,.18),transparent 70%); pointer-events:none; opacity:.9; }
+.badge { display:inline-flex; align-items:center; gap:.35rem; font:600 .7rem var(--font-body); letter-spacing:1.2px; text-transform:uppercase; background:var(--color-accent-dark); color:#fff; padding:.45rem .85rem .4rem; border-radius:30px; box-shadow:0 6px 18px -6px rgba(0,0,0,.28); }
+.soon { font:600 clamp(1.35rem,2.6vw,1.9rem) var(--font-body); margin:1.1rem 0 .9rem; display:flex; align-items:center; gap:.6rem; letter-spacing:.6px; }
+.soon .pulse { width:14px; height:14px; border-radius:50%; background:var(--color-accent-dark); position:relative; box-shadow:0 0 0 0 rgba(192,123,80,.55); animation:pulse 2.2s infinite; }
+@keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(192,123,80,.55);} 70% { box-shadow:0 0 0 18px rgba(192,123,80,0);} 100% { box-shadow:0 0 0 0 rgba(192,123,80,0);} }
+ul.list { list-style:none; margin:1.3rem 0 1.8rem; padding:0; display:grid; gap:.6rem; font-size:.9rem; }
+ul.list li { position:relative; padding-left:1.3rem; line-height:1.5; }
+ul.list li::before { content:"🐾"; position:absolute; left:0; top:2px; font-size:.85rem; }
+.notice { background:linear-gradient(135deg,#fff,#f4e1e8); padding:1.1rem 1.2rem 1.15rem; border:1px solid rgba(0,0,0,.05); border-radius:24px; font-size:.78rem; line-height:1.4; display:flex; gap:.75rem; align-items:flex-start; }
+.notice:before { content:"ℹ️"; font-size:1rem; }
+.actions { display:flex; flex-wrap:wrap; gap:.9rem; margin-top:1.4rem; }
+.btn { --btn-bg:var(--color-accent); background:var(--btn-bg); color:#fff; border:none; padding:.85rem 1.45rem; border-radius:46px; font:600 .8rem var(--font-body); cursor:pointer; box-shadow:0 6px 22px -8px rgba(0,0,0,.4); display:inline-flex; align-items:center; gap:.45rem; letter-spacing:.7px; position:relative; overflow:hidden; transition:var(--transition); text-decoration:none; }
+.btn:hover { transform:translateY(-3px); box-shadow:0 16px 32px -10px rgba(0,0,0,.35); }
+.btn.alt { --btn-bg:var(--color-accent-dark); }
+footer { text-align:center; padding:2.2rem 1rem 3.2rem; font-size:.75rem; color:#6b5850; }
+.back { display:inline-flex; align-items:center; gap:.4rem; text-decoration:none; font-size:.8rem; margin-top:2.2rem; color:var(--color-accent-dark); }
+.lang-switch a { cursor:pointer; }
+@media (max-width:760px){ .panel { border-radius:34px; padding:1.9rem 1.35rem 2.2rem; } ul.list { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-inner">
+    <div class="brand">Lakshmi <span>Love</span></div>
+    <button class="menu-toggle" aria-label="Menu"><span></span></button>
+    <div class="nav-collapsible" data-nav>
+      <nav aria-label="Navigation">
+        <ul>
+          <li><a href="site_en.html">Home</a></li>
+          <li><a href="breeders_en.html">Breeding Dogs</a></li>
+          <li><a href="puppies_en.html" aria-current="page">Puppies</a></li>
+          <li><a href="contacts_en.html">Contacts</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <h1>Puppies</h1>
+    <p class="lead">Soon: available Yorkshire Terrier puppies from our responsible breeding program. Each litter is planned focusing on health, temperament and breed type.</p>
+    <div class="coming-wrapper">
+      <div class="panel" id="coming">
+        <span class="badge">Soon</span>
+        <div class="soon"><span class="pulse" aria-hidden="true"></span> COMING SOON</div>
+        <ul class="list">
+          <li>Fresh photos & video</li>
+          <li>Temperament & prospects notes</li>
+          <li>Parents health & pedigree info</li>
+          <li>Early reservation option</li>
+        </ul>
+        <div class="notice">We don't publish puppies before a safe age and initial vet check — to promote informed, responsible decisions.</div>
+        <div class="actions">
+          <a class="btn" href="contacts_en.html#contactForm">Request info</a>
+          <a class="btn alt" href="breeders_en.html#breeders">Parents</a>
+        </div>
+      </div>
+    </div>
+    <a class="back" href="site_en.html">← Back to home</a>
+  </div>
+</main>
+<footer>© <span id="year"></span> Lakshmi Love — planned litters with care.</footer>
+<script>
+const y=document.getElementById('year');y.textContent=new Date().getFullYear();
+window.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>document.body.classList.add('page-ready'));const mb=document.querySelector('.menu-toggle');const wrap=document.querySelector('.nav-collapsible');mb.addEventListener('click',()=>{mb.classList.toggle('active');wrap.classList.toggle('open');});wrap.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(innerWidth<861){mb.classList.remove('active');wrap.classList.remove('open');}}));});
+(function(){const key='siteLang';document.querySelectorAll('.lang-switch a').forEach(a=>a.addEventListener('click',()=>localStorage.setItem(key,a.dataset.lang)));const pref=localStorage.getItem(key);const cur=document.documentElement.lang;if(pref&&pref!==cur){const path=location.pathname.split('/').pop();const base=path.replace(/(_[a-z]{2})?\.html$/,'');const target=base+(pref==='ru'?'':'_'+pref)+'.html';if(target!==path) location.href=target;}})();
+// Central language logic (no per-page switcher)
+(function(){
+ const key='siteLang'; const supported=['ru','en','sr'];
+ let pref=localStorage.getItem(key); const current=document.documentElement.lang||'en';
+ if(!pref || !supported.includes(pref)){ localStorage.setItem(key,current); pref=current; }
+ const file=location.pathname.split('/').pop();
+ const m=file.match(/^([a-z]+)(?:_([a-z]{2}))?\.html$/);
+ const pages=['site','breeders','puppies','contacts'];
+ if(m){ const base=m[1]; if(pages.includes(base)){
+   if(pref!==current){ const target=base+(pref==='ru'?'':'_'+pref)+'.html'; if(target!==file){ location.replace(target); return; } }
+   document.querySelectorAll('a[href]').forEach(a=>{ const h=a.getAttribute('href'); if(!h || h.startsWith('#')||h.startsWith('http')||h.startsWith('mailto:')) return; const hm=h.match(/^([a-z]+)(?:_([a-z]{2}))?\.html(.*)$/); if(hm){ const b=hm[1]; if(!pages.includes(b)) return; const suf=pref==='ru'?'' :'_'+pref; a.setAttribute('href', b+suf+'.html'+(hm[3]||'')); } });
+ }
+ }
+})();
+</script>
+</body>
+</html>

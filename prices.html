@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Цены — Lakshmi Love</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root { --color-bg:#fdf9f6; --color-accent:#d4a373; --color-accent-dark:#c07b50; --color-text:#3b2f2f; --radius:18px; --max-width:1180px; --transition:.35s cubic-bezier(.4,0,.2,1); --shadow-soft:0 8px 28px -6px rgba(0,0,0,.08),0 2px 6px -1px rgba(0,0,0,.06);} 
+body { margin:0; font-family:'Inter',system-ui,sans-serif; background:var(--color-bg); color:var(--color-text); }
+header { position:sticky; top:0; background:rgba(255,255,255,.75); backdrop-filter:blur(10px); border-bottom:1px solid rgba(0,0,0,.06); display:flex; align-items:center; height:70px; z-index:10; }
+.nav-inner { max-width:var(--max-width); margin:0 auto; width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 1.6rem; }
+.brand { font-family:'Playfair Display',serif; font-size:1.45rem; font-weight:700; letter-spacing:.5px; }
+nav ul { list-style:none; margin:0; padding:0; display:flex; gap:1rem; flex-wrap:wrap; }
+nav a { text-decoration:none; color:var(--color-text); font-weight:500; position:relative; padding:.4rem .2rem; }
+nav a::after { content:""; position:absolute; left:50%; bottom:0; height:2px; width:0; background:var(--color-accent-dark); transform:translateX(-50%); transition:var(--transition); }
+nav a:hover::after, nav a:focus-visible::after { width:70%; }
+main { padding: clamp(3.5rem,7vw,5.5rem) 1.4rem 4rem; min-height:calc(100vh - 70px); }
+.container { max-width:var(--max-width); margin:0 auto; }
+h1 { font:700 clamp(2rem,4vw,2.8rem) 'Inter',sans-serif; margin:0 0 1.2rem; }
+.lead { font-size:1.03rem; line-height:1.55; max-width:860px; }
+.pricing-grid { display:grid; gap:1.8rem; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); margin-top:2.3rem; }
+.price-card { background:#fff; border:1px solid rgba(0,0,0,.05); border-radius:30px; padding:1.4rem 1.4rem 1.8rem; box-shadow:var(--shadow-soft); position:relative; overflow:hidden; display:flex; flex-direction:column; }
+.price-card::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 30% 15%, rgba(212,163,115,.18), transparent 70%); opacity:.9; pointer-events:none; }
+.price-header { font:600 1.15rem 'Inter',sans-serif; margin:0 0 .4rem; letter-spacing:.4px; }
+.price { font:700 1.6rem 'Inter',sans-serif; margin:.2rem 0 .8rem; color:var(--color-accent-dark); }
+ul.features { list-style:none; margin:0 0 1.1rem; padding:0; font-size:.85rem; line-height:1.45; }
+ul.features li { position:relative; padding-left:1.1rem; margin:.3rem 0; }
+ul.features li::before { content:'•'; position:absolute; left:0; color:var(--color-accent-dark); }
+.badge { position:absolute; top:12px; right:14px; background:var(--color-accent-dark); color:#fff; font-size:.6rem; letter-spacing:1px; padding:.32rem .55rem; border-radius:40px; }
+.btn { margin-top:auto; align-self:flex-start; background:var(--color-accent); color:#fff; border:none; border-radius:40px; padding:.7rem 1.15rem; font:600 .85rem 'Inter',sans-serif; cursor:pointer; box-shadow:0 4px 16px -6px rgba(0,0,0,.25); transition:var(--transition); }
+.btn:hover { transform:translateY(-3px); box-shadow:0 10px 26px -8px rgba(0,0,0,.28); }
+.note { font-size:.7rem; opacity:.65; margin-top:2rem; }
+.table-compare { margin-top:3rem; width:100%; border-collapse:collapse; font-size:.78rem; }
+.table-compare th, .table-compare td { padding:.6rem .7rem; border-bottom:1px solid rgba(0,0,0,.08); text-align:left; }
+.table-compare th { background:#fff; position:sticky; top:70px; z-index:2; }
+footer { text-align:center; padding:2rem 1rem 3rem; font-size:.8rem; color:#705b53; }
+.back { display:inline-flex; align-items:center; gap:.4rem; text-decoration:none; font-size:.85rem; margin-top:1rem; color:var(--color-accent-dark); }
+</style>
+</head>
+<body>
+<header>
+	<div class="nav-inner">
+		<div class="brand">Lakshmi <span style="color:var(--color-accent-dark)">Love</span></div>
+		<nav aria-label="Навигация">
+			<ul>
+				<li><a href="site.html">Главная</a></li>
+				<li><a href="breeders.html">Производители и производительницы</a></li>
+				<li><a href="contacts.html">Контакты</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<main>
+	<div class="container">
+		<h1>Цены</h1>
+		<p class="lead">Предварительная стоимость щенков и услуг может меняться в зависимости от родословной, перспективности щенка, выставочной подготовки и индивидуальных запросов. Ниже приведены ориентировочные пакеты.</p>
+		<div class="pricing-grid">
+			<div class="price-card">
+				<span class="badge">START</span>
+				<h3 class="price-header">Пэт-класс</h3>
+				<div class="price">от 70 000 ₽</div>
+				<ul class="features">
+					<li>Метрика щенка / родословная</li>
+					<li>Вакцинация по возрасту</li>
+					<li>Первичный груминг</li>
+					<li>Консультация (1 месяц)</li>
+				</ul>
+				<button class="btn">Запросить</button>
+			</div>
+			<div class="price-card">
+				<span class="badge" style="background:var(--color-accent)">SHOW</span>
+				<h3 class="price-header">Шоу-потенциал</h3>
+				<div class="price">от 120 000 ₽</div>
+				<ul class="features">
+					<li>Перспективный экстерьер</li>
+					<li>Консультации 3 месяца</li>
+					<li>Базовая ринг-подготовка</li>
+					<li>Стартовый набор по уходу</li>
+				</ul>
+				<button class="btn">Уточнить</button>
+			</div>
+			<div class="price-card">
+				<span class="badge" style="background:var(--color-accent-dark)">ELITE</span>
+				<h3 class="price-header">Разведение / шоу</h3>
+				<div class="price">от 160 000 ₽</div>
+				<ul class="features">
+					<li>Топовая родословная</li>
+					<li>Расширенные консультации 6 мес</li>
+					<li>Индивидуальный план питания</li>
+					<li>Доп. поддержка по выставкам</li>
+				</ul>
+				<button class="btn">Связаться</button>
+			</div>
+		</div>
+		<table class="table-compare" aria-label="Сравнение пакетов">
+			<thead><tr><th>Опция</th><th>Пэт</th><th>Шоу</th><th>Elite</th></tr></thead>
+			<tbody>
+				<tr><td>Консультации</td><td>1 мес</td><td>3 мес</td><td>6 мес</td></tr>
+				<tr><td>Ринг-подготовка</td><td>-</td><td>Базовая</td><td>Расширенная</td></tr>
+				<tr><td>Генетические тесты</td><td>По запросу</td><td>Базовый набор</td><td>Расширенный</td></tr>
+				<tr><td>Поддержка питания</td><td>-</td><td>-</td><td>Индивид. план</td></tr>
+			</tbody>
+		</table>
+		<p class="note">* Итоговая стоимость рассчитывается индивидуально и может отличаться. Предоплата брони — 20%. Перевод возможен по договору.</p>
+		<a class="back" href="site.html">← Назад на главную</a>
+	</div>
+</main>
+<footer>© <span id="year"></span> Lakshmi Love — прайс ориентировочный, уточняйте актуальные условия.</footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>

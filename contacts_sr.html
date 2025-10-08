@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Контакт — Lakshmi Love</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet" />
+<style>
+:root { --color-bg:#fbf8f5; --color-accent:#d4a373; --color-accent-dark:#c07b50; --color-text:#3b2f2f; --color-soft:#5c4c4c; --radius:22px; --max-width:1100px; --transition:.35s cubic-bezier(.4,0,.2,1); --shadow-soft:0 8px 28px -6px rgba(0,0,0,.08),0 2px 6px -1px rgba(0,0,0,.06); --grad-card:linear-gradient(135deg,#ffffff 0%,#fff6ef 60%,#ffe8d3 100%); --font-body:'Manrope',system-ui,sans-serif; --font-heading:'Prata',serif;} 
+body { margin:0; font-family:var(--font-body); background:radial-gradient(circle at 15% 20%,#fff6ed,transparent 55%), radial-gradient(circle at 85% 70%,#ffe8d8,transparent 55%), var(--color-bg); color:var(--color-text); opacity:0; min-height:100vh; }
+body.page-ready { opacity:1; transition:opacity .55s ease; }
+header { position:fixed; top:0; left:0; right:0; background:rgba(255,255,255,.68); backdrop-filter:blur(14px); border-bottom:1px solid rgba(0,0,0,.06); display:flex; align-items:center; height:74px; z-index:40; box-shadow:0 6px 18px -10px rgba(0,0,0,.18); }
+.nav-inner { max-width:var(--max-width); margin:0 auto; width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 1.6rem; }
+.brand { font-family:var(--font-heading); font-size:1.7rem; font-weight:400; letter-spacing:1px; background:linear-gradient(90deg,#c07b50,#d4a373 60%,#b86e45); -webkit-background-clip:text; background-clip:text; color:transparent; display:inline-flex; align-items:center; gap:.5rem; position:relative; }
+.brand::after { content:""; position:absolute; left:0; bottom:-4px; height:2px; width:100%; background:linear-gradient(90deg,#d4a373,#c07b50); opacity:.4; }
+nav { display:flex; align-items:center; }
+nav ul { list-style:none; margin:0; padding:0; display:flex; gap:1rem; flex-wrap:wrap; }
+nav a { text-decoration:none; color:var(--color-text); font-weight:500; position:relative; padding:.4rem .2rem; }
+nav a::after { content:""; position:absolute; left:50%; bottom:0; height:2px; width:0; background:var(--color-accent-dark); transform:translateX(-50%); transition:var(--transition); }
+nav a:hover::after { width:70%; }
+.lang-switch { display:flex; align-items:center; gap:.45rem; font-size:.7rem; letter-spacing:1px; text-transform:uppercase; background:rgba(255,255,255,.55); padding:.4rem .65rem; border-radius:30px; border:1px solid rgba(0,0,0,.08); backdrop-filter:blur(8px); margin-left:1.2rem; }
+.lang-switch a { text-decoration:none; color:#5c4c4c; font-weight:600; padding:.15rem .35rem; }
+.lang-switch a.active { color:var(--color-accent-dark); }
+.menu-toggle { display:none; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); width:44px; height:44px; border-radius:12px; cursor:pointer; align-items:center; justify-content:center; position:relative; }
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after { content:""; display:block; width:20px; height:2px; background:#5c4c4c; position:absolute; transition:.4s cubic-bezier(.4,0,.2,1); }
+.menu-toggle span::before { top:-6px; }
+.menu-toggle span::after { top:6px; }
+.menu-toggle.active span { background:transparent; }
+.menu-toggle.active span::before { top:0; transform:rotate(45deg); }
+.menu-toggle.active span::after { top:0; transform:rotate(-45deg); }
+.nav-collapsible { display:flex; align-items:center; gap:1.2rem; }
+@media (max-width:860px){
+  .menu-toggle { display:flex; }
+  .nav-collapsible { position:fixed; top:74px; right:0; width:100%; max-width:360px; background:rgba(255,255,255,.85); backdrop-filter:blur(14px); flex-direction:column; align-items:flex-start; padding:1.6rem 1.4rem 2.2rem; box-shadow:0 28px 46px -18px rgba(0,0,0,.28); border-left:1px solid rgba(0,0,0,.06); transform:translateX(100%); transition:.55s cubic-bezier(.4,0,.2,1); height:calc(100vh - 74px); overflow-y:auto; }
+  .nav-collapsible.open { transform:translateX(0); }
+  nav ul { flex-direction:column; width:100%; gap:.4rem; }
+  nav a { display:block; padding:.65rem 0; }
+  .lang-switch { margin:.6rem 0 0; align-self:stretch; justify-content:flex-start; }
+}
+main { padding: clamp(3.5rem,7vw,5.5rem) 1.4rem 4rem; min-height:calc(100vh - 74px); position:relative; }
+.container { max-width:var(--max-width); margin:0 auto; }
+h1 { font-family:var(--font-heading); font-weight:400; font-size:clamp(2.25rem,4.5vw,3.05rem); margin:0 0 1.1rem; letter-spacing:.55px; background:linear-gradient(90deg,#3b2f2f,#8a5b43); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.lead { font-size:1.05rem; line-height:1.55; max-width:780px; }
+.grid { display:grid; gap:2.2rem; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); margin-top:2.8rem; }
+.card { background:var(--grad-card); border:1px solid rgba(192,123,80,.25); padding:1.55rem 1.55rem 1.75rem; border-radius:34px; box-shadow:0 10px 32px -10px rgba(176,109,70,.35),0 2px 6px -1px rgba(0,0,0,.08); position:relative; display:flex; flex-direction:column; gap:.85rem; overflow:hidden; isolation:isolate; }
+.card h3 { margin:.1rem 0 .2rem; font-size:1.1rem; font-family:var(--font-heading); font-weight:400; letter-spacing:.5px; }
+.inline { display:flex; align-items:flex-start; gap:.75rem; font-size:.92rem; line-height:1.35; position:relative; }
+.icon { width:46px; height:46px; border-radius:20px; background:linear-gradient(145deg,#fff,#ffeede); display:grid; place-items:center; font-size:1.2rem; box-shadow:0 6px 18px -6px rgba(0,0,0,.2); border:1px solid rgba(212,163,115,.4); position:relative; overflow:hidden; }
+.icon svg { width:62%; height:62%; display:block; }
+.icon-instagram { background:radial-gradient(circle at 30% 30%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 70%,#285AEB 100%); }
+.icon-instagram svg { fill:#fff; }
+.icon-telegram { background:linear-gradient(135deg,#37aee2,#1e96c8); }
+.icon-telegram svg { fill:#fff; }
+.icon-facebook { background:linear-gradient(135deg,#1877f2,#0e5dc6); }
+.icon-facebook svg { fill:#fff; }
+.icon-email { background:linear-gradient(135deg,#c07b50,#d4a373); }
+.icon-email svg { fill:#fff; }
+form { display:grid; gap:1rem; margin-top:2.2rem; max-width:560px; }
+label { font-size:.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600; color:var(--color-soft); }
+input, textarea { width:100%; padding:.95rem 1.1rem; border:1px solid rgba(0,0,0,.15); border-radius:22px; font:500 .92rem var(--font-body); background:#fff; transition:var(--transition); }
+input:focus, textarea:focus { outline:none; border-color:var(--color-accent-dark); box-shadow:0 0 0 3px rgba(212,163,115,.25); }
+textarea { resize:vertical; min-height:140px; }
+button.btn { --btn-bg:linear-gradient(90deg,#c07b50,#d4a373); background:var(--btn-bg); color:#fff; border:none; border-radius:50px; padding:1rem 1.75rem; font:600 .9rem var(--font-body); cursor:pointer; box-shadow:0 6px 20px -6px rgba(192,123,80,.55); transition:var(--transition); letter-spacing:.5px; position:relative; overflow:hidden; }
+button.btn:hover { transform:translateY(-4px); box-shadow:0 14px 30px -8px rgba(176,109,70,.55); }
+.map-embed { margin-top:3.2rem; border-radius:34px; overflow:hidden; box-shadow:0 12px 40px -12px rgba(0,0,0,.2); border:1px solid rgba(0,0,0,.06); position:relative; }
+.small { font-size:.75rem; opacity:.6; margin-top:1.2rem; }
+footer { text-align:center; padding:2.4rem 1rem 3.4rem; font-size:.78rem; color:#705b53; position:relative; }
+.back { display:inline-flex; align-items:center; gap:.45rem; text-decoration:none; font-size:.85rem; margin-top:2.6rem; color:var(--color-accent-dark); padding:.65rem 1rem; background:rgba(255,255,255,.65); border:1px solid rgba(192,123,80,.35); border-radius:30px; box-shadow:0 6px 20px -8px rgba(0,0,0,.25); transition:var(--transition); }
+.back:hover { transform:translateY(-3px); }
+.status { font-size:.75rem; font-weight:600; letter-spacing:.5px; color:var(--color-accent-dark); margin-top:.3rem; }
+@media (max-width:680px){ .grid { grid-template-columns:1fr; } header { height:70px; } h1 { font-size:clamp(2rem,9vw,2.6rem); } }
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-inner">
+    <a class="brand" href="site_sr.html" aria-label="Почетна">Lakshmi <span>Love</span></a>
+    <button class="menu-toggle" aria-label="Meni"><span></span></button>
+    <div class="nav-collapsible" data-nav>
+      <nav aria-label="Навигација">
+        <ul>
+          <li><a href="site_sr.html">Почетна</a></li>
+          <li><a href="breeders_sr.html">Плодни пси</a></li>
+          <li><a href="puppies_sr.html">Штенци</a></li>
+          <li><a href="contacts_sr.html" aria-current="page">Контакт</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <h1>Контакт</h1>
+    <p class="lead">Пишите нам за резервацију, савет о нези длаке, припрему за изложбе или сарадњу.</p>
+    <div class="grid">
+      <div class="card" aria-labelledby="contact-social">
+        <h3 id="contact-social">Друштвене мреже</h3>
+        <div class="inline"><span class="icon icon-instagram" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4Zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm5.1-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0ZM12 2c3.3 0 3.7 0 5 .1 1.2.1 1.9.3 2.4.6.6.3 1 .7 1.5 1.3.5.5.9 1 1.2 1.5.3.6.5 1.2.6 2.4.1 1.3.1 1.7.1 5s0 3.7-.1 5c-.1 1.2-.3 1.9-.6 2.4-.3.6-.7 1-1.2 1.5-.5.5-1 .9-1.5 1.2-.6.3-1.2.5-2.4.6-1.3.1-1.7.1-5 .1s-3.7 0-5-.1c-1.2-.1-1.9-.3-2.4-.6-.6-.3-1-.7-1.5-1.2-.5-.5-.9-1-1.2-1.5-.3-.6-.5-1.2-.6-2.4C2 15.7 2 15.3 2 12s0-3.7.1-5c.1-1.2.3-1.9.6-2.4.3-.6.7-1 1.2-1.5.5-.5 1-.9 1.5-1.2.6-.3 1.2-.5 2.4-.6C8.3 2 8.7 2 12 2Z"/></svg></span><div><strong>Instagram*</strong><br><a href="https://www.instagram.com/lakshmi_love_kennel?igsh=YWxydTB6c3FiYWRi" target="_blank" rel="noopener">@lakshmi_love_kennel</a></div></div>
+        <div class="inline"><span class="icon icon-telegram" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21.8 4.6c.3-1-.7-1.8-1.7-1.5L2.7 9.3c-.8.3-.8 1.5 0 1.8l4.6 1.6 2 6.2c.2.7 1.1.9 1.6.4l2.9-3 4.9 3.6c.7.5 1.7.1 1.9-.8L21.8 4.6Zm-6.2 3.4-6 5.6c-.1.1-.2.3-.2.5l.3 2.6c0 .2-.2.3-.3.1l-1.3-4a.6.6 0 0 1 .3-.7l7-4.1c.2-.2.5.1.2.2Z"/></svg></span><div><strong>Telegram</strong><br><a href="https://t.me/pumba_aria" target="_blank" rel="noopener">@pumba_aria</a></div></div>
+        <div class="inline"><span class="icon icon-facebook" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.4 22v-8.2h2.8l.4-3.2h-3.2V8.2c0-.9.3-1.6 1.6-1.6h1.7V3.7c-.3 0-1.3-.1-2.4-.1-2.3 0-3.8 1.4-3.8 4v2.1H8.1v3.2h2.4V22h2.9Z"/></svg></span><div><strong>Facebook</strong><br><a href="https://www.facebook.com/share/17CgUVrwWq/?mibextid=wwXIfr" target="_blank" rel="noopener">Профил</a></div></div>
+        <div class="inline"><span class="icon icon-email" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5.5C3 4.7 3.7 4 4.5 4h15c.8 0 1.5.7 1.5 1.5v13c0 .8-.7 1.5-1.5 1.5h-15C3.7 20 3 19.3 3 18.5v-13Zm2 .5v.3l6.8 4.7c.4.3 1 .3 1.4 0L20 6.3V6H5Zm13.5 11c.3 0 .5-.2.5-.5v-8l-6 4.2a3 3 0 0 1-3.4 0L4 8.5v8c0 .3.2.5.5.5h14Z"/></svg></span><div><strong>Email</strong><br><a href="mailto:F-room@mail.ru">F-room@mail.ru</a></div></div>
+        <p class="small">*Мрежа са ограничењима, 18+</p>
+      </div>
+      <div class="card" aria-labelledby="contact-form-block">
+        <h3 id="contact-form-block">Пишите нам</h3>
+        <form id="contactForm" novalidate>
+          <label for="name">Име</label>
+          <input id="name" name="name" required placeholder="Ваше име" />
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="example@mail.com" />
+          <label for="message">Порука</label>
+          <textarea id="message" name="message" required placeholder="Ваш захтев..."></textarea>
+          <button class="btn" type="submit">Пошаљи</button>
+          <div class="status" id="formStatus" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+    <div class="map-embed" aria-label="Локација — Нови Сад">
+      <iframe title="Мапа: Нови Сад" src="https://www.openstreetmap.org/export/embed.html?bbox=19.79%2C45.23%2C19.87%2C45.29&amp;layer=mapnik&amp;marker=45.2671%2C19.8335" style="width:100%;height:350px;border:0;" loading="lazy" referrerpolicy="no-referrer" aria-label="Мапа Нови Сад"></iframe>
+    </div>
+    <a class="back" href="site_sr.html">← Назад</a>
+  </div>
+</main>
+<footer>© <span id="year"></span> Lakshmi Love — пишите нам за детаље.</footer>
+<script>
+const yearEl=document.getElementById('year');yearEl.textContent=new Date().getFullYear();
+window.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>document.body.classList.add('page-ready'));const mb=document.querySelector('.menu-toggle');const wrap=document.querySelector('.nav-collapsible');mb.addEventListener('click',()=>{mb.classList.toggle('active');wrap.classList.toggle('open');});wrap.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(innerWidth<861){mb.classList.remove('active');wrap.classList.remove('open');}}));});
+const form=document.getElementById('contactForm'); const statusEl=document.getElementById('formStatus');
+form.addEventListener('submit',e=>{ e.preventDefault(); statusEl.textContent='Слање...'; setTimeout(()=>{ statusEl.textContent='Порука послата (демо).'; form.reset(); }, 900); });
+(function(){const key='siteLang';document.querySelectorAll('.lang-switch a').forEach(a=>a.addEventListener('click',()=>localStorage.setItem(key,a.dataset.lang)));const pref=localStorage.getItem(key);const cur=document.documentElement.lang;if(pref&&pref!==cur){const path=location.pathname.split('/').pop();const base=path.replace(/(_[a-z]{2})?\.html$/,'');const target=base+(pref==='ru'?'':'_'+pref)+'.html';if(target!==path) location.href=target;}})();
+// Central language logic
+(function(){
+ const key='siteLang'; const supported=['ru','en','sr'];
+ let pref=localStorage.getItem(key); const current=document.documentElement.lang||'sr';
+ if(!pref || !supported.includes(pref)){ localStorage.setItem(key,current); pref=current; }
+ const file=location.pathname.split('/').pop();
+ const m=file.match(/^([a-z]+)(?:_([a-z]{2}))?\.html$/);
+ const pages=['site','breeders','puppies','contacts'];
+ if(m){ const base=m[1]; if(pages.includes(base)){
+   if(pref!==current){ const target=base+(pref==='ru'?'':'_'+pref)+'.html'; if(target!==file){ location.replace(target); return; } }
+   document.querySelectorAll('a[href]').forEach(a=>{ const h=a.getAttribute('href'); if(!h || h.startsWith('#')||h.startsWith('http')||h.startsWith('mailto:')) return; const hm=h.match(/^([a-z]+)(?:_([a-z]{2}))?\.html(.*)$/); if(hm){ const b=hm[1]; if(!pages.includes(b)) return; const suf=pref==='ru'?'' :'_'+pref; a.setAttribute('href', b+suf+'.html'+(hm[3]||'')); } });
+ }
+ }
+})();
+</script>
+</body>
+</html>
