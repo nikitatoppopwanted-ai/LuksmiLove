@@ -3,30 +3,35 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Puppies — Lakshmi Love</title>
-<meta name="description" content="Upcoming Yorkshire Terrier puppies from Lakshmi Love kennel." />
+<title>Puppies for Sale — Lakshmi Love</title>
+<link rel="icon" type="image/png" href="images/yorkie-3d.png" />
+<meta name="description" content="Yorkshire Terrier puppies at Lakshmi Love kennel." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet" />
+<script src="lang.js"></script>
 <style>
-:root { --color-bg:#fdf9f6; --color-accent:#d4a373; --color-accent-dark:#c07b50; --color-text:#3b2f2f; --radius:26px; --max-width:1180px; --transition:.35s cubic-bezier(.4,0,.2,1); --shadow-soft:0 8px 28px -6px rgba(0,0,0,.08),0 2px 6px -1px rgba(0,0,0,.06); --font-body:'Manrope',system-ui,sans-serif; --font-heading:'Prata',serif; }
+:root { --color-bg:#fdf9f6; --color-accent:#d4a373; --color-accent-dark:#c07b50; --color-text:#3b2f2f; --radius:26px; --max-width:1180px; --transition:.35s cubic-bezier(.4,0,.2,1); --shadow-soft:0 8px 28px -6px rgba(0,0,0,.08),0 2px 6px -1px rgba(0,0,0,.06); --font-body:'Manrope',system-ui,sans-serif; --font-heading:'Prata',serif; --gradient-accent:linear-gradient(135deg,#d4a373,#f4e1e8 65%); }
 * { box-sizing:border-box; }
-body { margin:0; font-family:var(--font-body); background:radial-gradient(circle at 40% 25%,#fff 0,#fdf2ec 55%,#f9e5d6 100%); color:var(--color-text); opacity:0; }
+body { margin:0; font-family:var(--font-body); background:radial-gradient(circle at 40% 25%,#fff 0,#fdf2ec 55%,#f9e5d6 100%); color:var(--color-text); -webkit-font-smoothing:antialiased; opacity:0; }
 body.page-ready { opacity:1; transition:opacity .55s ease; }
-header { position:fixed; top:0; left:0; right:0; background:rgba(255,255,255,.75); backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.06); display:flex; align-items:center; height:68px; z-index:40; }
+body.page-fade-out { opacity:0 !important; transition:opacity .35s ease; }
+body.no-scroll { overflow:hidden; }
+header { position:fixed; top:0; left:0; right:0; background:rgba(255,255,255,.75); backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.06); display:flex; align-items:center; height:72px; z-index:40; transition:var(--transition); }
+header.scrolled { backdrop-filter:blur(18px) saturate(1.4); background:rgba(255,255,255,.85); box-shadow:0 6px 26px -12px rgba(0,0,0,.28); }
 .nav-inner { max-width:var(--max-width); margin:0 auto; width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 1.4rem; }
-.brand { font-family:var(--font-heading); font-size:1.85rem; letter-spacing:.75px; display:flex; gap:.4rem; align-items:center; }
-.brand span { color:var(--color-accent-dark); }
+.brand { text-decoration:none; color:var(--color-text); font-family:var(--font-heading); font-size:1.95rem; letter-spacing:.8px; display:flex; gap:.4rem; align-items:center; font-weight:400; }
+.brand span { background:var(--gradient-accent); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:400; }
 nav { display:flex; align-items:center; }
 nav ul { list-style:none; margin:0; padding:0; display:flex; gap:1rem; flex-wrap:wrap; }
 nav a { text-decoration:none; color:var(--color-text); font-weight:500; position:relative; padding:.45rem .3rem; font-size:.85rem; letter-spacing:.5px; }
 nav a::after { content:""; position:absolute; left:50%; bottom:0; height:2px; width:0; background:var(--color-accent-dark); transform:translateX(-50%); transition:var(--transition); }
-nav a:hover::after { width:70%; }
+nav a:hover::after, nav a:focus-visible::after { width:70%; }
 .lang-switch { display:flex; align-items:center; gap:.45rem; font-size:.7rem; letter-spacing:1px; text-transform:uppercase; background:rgba(255,255,255,.55); padding:.4rem .65rem; border-radius:30px; border:1px solid rgba(0,0,0,.08); backdrop-filter:blur(8px); margin-left:1.2rem; }
 .lang-switch a { text-decoration:none; color:#5c4c4c; font-weight:600; padding:.15rem .35rem; }
 .lang-switch a.active { color:var(--color-accent-dark); }
-.menu-toggle { display:none; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); width:44px; height:44px; border-radius:12px; cursor:pointer; align-items:center; justify-content:center; position:relative; }
-.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after { content:""; display:block; width:20px; height:2px; background:#5c4c4c; position:absolute; transition:.4s cubic-bezier(.4,0,.2,1); }
+.menu-toggle { display:none; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); width:44px; height:44px; border-radius:12px; cursor:pointer; align-items:center; justify-content:center; position:relative; box-shadow:0 4px 14px -6px rgba(0,0,0,.25); }
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after { content:""; display:block; width:20px; height:2px; background:#5c4c4c; border-radius:2px; position:absolute; transition:.4s cubic-bezier(.4,0,.2,1); }
 .menu-toggle span::before { top:-6px; }
 .menu-toggle span::after { top:6px; }
 .menu-toggle.active span { background:transparent; }
@@ -35,98 +40,277 @@ nav a:hover::after { width:70%; }
 .nav-collapsible { display:flex; align-items:center; gap:1.2rem; }
 @media (max-width:860px){
   .menu-toggle { display:flex; }
-  .nav-collapsible { position:fixed; top:68px; right:0; width:100%; max-width:360px; background:rgba(255,255,255,.85); backdrop-filter:blur(14px); flex-direction:column; align-items:flex-start; padding:1.6rem 1.4rem 2.2rem; box-shadow:0 28px 46px -18px rgba(0,0,0,.28); border-left:1px solid rgba(0,0,0,.06); transform:translateX(100%); transition:.55s cubic-bezier(.4,0,.2,1); height:calc(100vh - 68px); overflow-y:auto; }
+  .nav-collapsible { position:fixed; top:72px; right:0; width:100%; max-width:360px; background:rgba(255,255,255,.92); backdrop-filter:blur(14px); flex-direction:column; align-items:flex-start; padding:1.6rem 1.4rem 2.2rem; box-shadow:0 28px 46px -18px rgba(0,0,0,.28); border-left:1px solid rgba(0,0,0,.06); transform:translateX(100%); transition:.45s cubic-bezier(.4,0,.2,1); height:calc(100vh - 72px); overflow-y:auto; }
   .nav-collapsible.open { transform:translateX(0); }
   nav ul { flex-direction:column; width:100%; gap:.4rem; }
   nav a { display:block; padding:.65rem 0; }
   .lang-switch { margin:.6rem 0 0; align-self:stretch; justify-content:flex-start; }
 }
-main { min-height:calc(100vh - 68px); padding:clamp(3.8rem,6.2vw,5.5rem) 1.4rem 4rem; position:relative; }
-.container { max-width:var(--max-width); margin:0 auto; }
+main { min-height:calc(100vh - 72px); padding:clamp(4.8rem,7vw,6rem) 1.4rem 4rem; position:relative; }
+.container { max-width:var(--max-width); margin:0 auto; padding:20px 20px 40px; }
 h1 { font-family:var(--font-heading); font-weight:400; font-size:clamp(2.15rem,4.4vw,3.15rem); margin:0 0 1.2rem; line-height:1.12; letter-spacing:.65px; }
-.lead { font-size:1.05rem; line-height:1.58; max-width:780px; }
-.coming-wrapper { margin-top:2.2rem; display:grid; gap:2.2rem; align-items:start; }
-.panel { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:40px; padding:2.2rem clamp(1.4rem,3vw,2.5rem) 2.6rem; position:relative; overflow:hidden; box-shadow:var(--shadow-soft); }
-.panel::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 20% 18%,rgba(212,163,115,.18),transparent 70%); pointer-events:none; opacity:.9; }
+.intro-text { max-width:850px; margin:15px 0 30px; line-height:1.6; color:#555; font-size:16px; }
+.cards-grid { display:flex; flex-wrap:wrap; gap:24px; justify-content:flex-start; margin:20px auto 40px; }
+.card { width:300px; max-width:100%; background:#fff; border-radius:16px; padding:16px; box-shadow:0 4px 15px rgba(0,0,0,.08); transition:transform .4s ease, box-shadow .4s ease; }
+.card:hover { transform:translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,.12); }
+.card img,.card video { width:100%; height:240px; object-fit:cover; border-radius:12px; display:block; margin:10px 0; }
+.card h3 { margin:12px 0 6px; font-size:19px; }
+.card .meta { font-size:12px; color:#888; margin-bottom:10px; }
+.titles { list-style:none; padding:0; margin:10px 0 0; font-size:13px; color:#555; }
+.titles li { padding:5px 0; }
 .badge { display:inline-flex; align-items:center; gap:.35rem; font:600 .7rem var(--font-body); letter-spacing:1.2px; text-transform:uppercase; background:var(--color-accent-dark); color:#fff; padding:.45rem .85rem .4rem; border-radius:30px; box-shadow:0 6px 18px -6px rgba(0,0,0,.28); }
-.soon { font:600 clamp(1.35rem,2.6vw,1.9rem) var(--font-body); margin:1.1rem 0 .9rem; display:flex; align-items:center; gap:.6rem; letter-spacing:.6px; }
-.soon .pulse { width:14px; height:14px; border-radius:50%; background:var(--color-accent-dark); position:relative; box-shadow:0 0 0 0 rgba(192,123,80,.55); animation:pulse 2.2s infinite; }
-@keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(192,123,80,.55);} 70% { box-shadow:0 0 0 18px rgba(192,123,80,0);} 100% { box-shadow:0 0 0 0 rgba(192,123,80,0);} }
-ul.list { list-style:none; margin:1.3rem 0 1.8rem; padding:0; display:grid; gap:.6rem; font-size:.9rem; }
-ul.list li { position:relative; padding-left:1.3rem; line-height:1.5; }
-ul.list li::before { content:"🐾"; position:absolute; left:0; top:2px; font-size:.85rem; }
-.notice { background:linear-gradient(135deg,#fff,#f4e1e8); padding:1.1rem 1.2rem 1.15rem; border:1px solid rgba(0,0,0,.05); border-radius:24px; font-size:.78rem; line-height:1.4; display:flex; gap:.75rem; align-items:flex-start; }
+.notice { background:linear-gradient(135deg,#fff,#f4e1e8); padding:1.1rem 1.2rem 1.15rem; border:1px solid rgba(0,0,0,.05); border-radius:24px; font-size:.82rem; line-height:1.5; display:flex; gap:.75rem; align-items:flex-start; margin:25px 0; }
 .notice:before { content:"ℹ️"; font-size:1rem; }
-.actions { display:flex; flex-wrap:wrap; gap:.9rem; margin-top:1.4rem; }
-.btn { --btn-bg:var(--color-accent); background:var(--btn-bg); color:#fff; border:none; padding:.85rem 1.45rem; border-radius:46px; font:600 .8rem var(--font-body); cursor:pointer; box-shadow:0 6px 22px -8px rgba(0,0,0,.4); display:inline-flex; align-items:center; gap:.45rem; letter-spacing:.7px; position:relative; overflow:hidden; transition:var(--transition); text-decoration:none; }
+.pricing-section-title { font-family:var(--font-heading); font-weight:400; font-size:40px; margin:50px 0 12px; padding-top:35px; border-top:1px solid rgba(0,0,0,.08); }
+.pricing-grid { display:flex; flex-wrap:wrap; gap:20px; margin:25px 0 30px; }
+.price-card { flex:1 1 280px; background:#fff; border-radius:16px; padding:24px; box-shadow:0 4px 15px rgba(0,0,0,.06); position:relative; display:flex; flex-direction:column; }
+.badge-plan { position:absolute; top:20px; right:20px; font-size:11px; font-weight:700; padding:3px 8px; border-radius:6px; background:#eee; color:#666; }
+.price-card.featured .badge-plan { background:#c48b5f; color:#fff; }
+.price-card h3 { margin:0 0 10px; font-size:20px; }
+.price-card .amount { font-size:26px; font-weight:700; color:#a26b42; margin-bottom:16px; }
+.price-features { list-style:none; padding:0; margin:0 0 20px; font-size:13px; color:#555; flex-grow:1; }
+.price-features li { padding:6px 0; border-bottom:1px solid #f3f3f3; }
+.price-features li::before { content:"• "; color:#c48b5f; font-weight:bold; }
+.btn { --btn-bg:var(--color-accent); background:var(--btn-bg); color:#fff; border:none; padding:.85rem 1.45rem; border-radius:46px; font:600 .8rem var(--font-body); cursor:pointer; box-shadow:0 6px 22px -8px rgba(0,0,0,.4); display:inline-flex; align-items:center; justify-content:center; gap:.45rem; letter-spacing:.4px; position:relative; overflow:hidden; transition:var(--transition); text-decoration:none; text-align:center; }
 .btn:hover { transform:translateY(-3px); box-shadow:0 16px 32px -10px rgba(0,0,0,.35); }
 .btn.alt { --btn-bg:var(--color-accent-dark); }
-footer { text-align:center; padding:2.2rem 1rem 3.2rem; font-size:.75rem; color:#6b5850; }
+.price-card .btn { padding:10px 18px; background:#c48b5f; font-size:14px; border-radius:20px; }
+.actions { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin:25px 0; }
+.table-container { overflow-x:auto; margin:25px 0; background:#fff; border-radius:16px; padding:20px; box-shadow:0 4px 15px rgba(0,0,0,.05); }
+table { width:100%; border-collapse:collapse; font-size:13px; text-align:left; }
+th,td { padding:12px 14px; border-bottom:1px solid #eee; }
+th { font-weight:600; color:#333; }
+.price-note { font-size:12px; color:#888; margin:10px 0 25px; line-height:1.6; }
+.decor { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.decor svg { position:absolute; opacity:.07; animation:float 18s linear infinite; }
+@keyframes float { to { transform:translateY(-1600px) rotate(360deg); } }
 .back { display:inline-flex; align-items:center; gap:.4rem; text-decoration:none; font-size:.8rem; margin-top:2.2rem; color:var(--color-accent-dark); }
-.lang-switch a { cursor:pointer; }
-@media (max-width:760px){ .panel { border-radius:34px; padding:1.9rem 1.35rem 2.2rem; } ul.list { grid-template-columns:1fr; } }
+footer { text-align:center; padding:2.2rem 1rem 3.2rem; font-size:.75rem; color:#6b5850; line-height:1.8; }
+.ripple-wrap { position:relative; overflow:hidden; }
+.ripple-ink { position:absolute; border-radius:50%; background:rgba(192,123,80,.35); transform:scale(0); animation:ripple .8s ease-out; pointer-events:none; }
+@keyframes ripple { to { transform:scale(3.6); opacity:0; } }
+[data-reveal] { opacity:0; transform:translateY(28px); transition:opacity 1s ease, transform 1s ease; }
+[data-reveal].is-visible { opacity:1; transform:none; }
+@media (max-width:760px){
+  .container { padding:20px 10px 30px; }
+  .card { width:100%; max-width:400px; }
+  .cards-grid { justify-content:center; }
+  .pricing-section-title { font-size:32px; }
+  .table-container { padding:12px; }
+  th,td { padding:10px 8px; font-size:12px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  .ripple-ink { display:none!important; }
+}
 </style>
 </head>
 <body>
 <header>
   <div class="nav-inner">
-    <div class="brand">Lakshmi <span>Love</span></div>
-    <button class="menu-toggle" aria-label="Menu"><span></span></button>
+    <a class="brand" href="index_en.html" aria-label="Lakshmi Love — Home">Lakshmi <span>Love</span></a>
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false"><span></span></button>
     <div class="nav-collapsible" data-nav>
       <nav aria-label="Navigation">
         <ul>
-          <li><a href="site_en.html">Home</a></li>
-          <li><a href="breeders_en.html">Breeding Dogs</a></li>
+          <li><a href="index_en.html">Home</a></li>
+          <li><a href="breeders_en.html">Our Dogs</a></li>
           <li><a href="puppies_en.html" aria-current="page">Puppies</a></li>
-          <li><a href="contacts_en.html">Contacts</a></li>
+          <li><a href="contacts_en.html">Contact</a></li>
         </ul>
       </nav>
+      <div class="lang-switch" role="group" aria-label="Choose language">
+        <a href="puppies.html" data-lang="ru" lang="ru">RU</a>
+        <a href="puppies_en.html" data-lang="en" lang="en" class="active" aria-current="true">EN</a>
+        <a href="puppies_sr.html" data-lang="sr" lang="sr">SR</a>
+      </div>
     </div>
   </div>
 </header>
+
 <main>
   <div class="container">
-    <h1>Puppies</h1>
-    <p class="lead">Soon: available Yorkshire Terrier puppies from our responsible breeding program. Each litter is planned focusing on health, temperament and breed type.</p>
-    <div class="coming-wrapper">
-      <div class="panel" id="coming">
-        <span class="badge">Soon</span>
-        <div class="soon"><span class="pulse" aria-hidden="true"></span> COMING SOON</div>
-        <ul class="list">
-          <li>Fresh photos & video</li>
-          <li>Temperament & prospects notes</li>
-          <li>Parents health & pedigree info</li>
-          <li>Early reservation option</li>
-        </ul>
-        <div class="notice">We don't publish puppies before a safe age and initial vet check — to promote informed, responsible decisions.</div>
-        <div class="actions">
-          <a class="btn" href="contacts_en.html#contactForm">Request info</a>
-          <a class="btn alt" href="breeders_en.html#breeders">Parents</a>
-        </div>
+    <h1>Puppies for Sale</h1>
+    <p class="intro-text">
+      Reservations are now open for Yorkshire Terrier puppies from champion parents <strong>Mittens Sky Veresk</strong> and <strong>MY SIMURAN GAEA ARIA</strong>. Date of birth: <strong>05.04.2026</strong>. The puppies are being raised with care and love. They have excellent conformation, silky coats, a true breed temperament, and a complete set of RKF / FCI documents.
+    </p>
+
+    <div class="cards-grid">
+      <div class="card">
+        <span class="badge">Puppy for Sale</span>
+        <img src="images/noritake.jpg" alt="Lakshmi Love Noritake" loading="lazy" />
+        <h3>Lakshmi Love Noritake</h3>
+        <div class="meta">(Mittens Sky Veresk &amp; My Simuran Gaea Aria)</div>
+        <ul class="titles"><li>Date of birth: 05.04.2026</li></ul>
+      </div>
+
+      <div class="card">
+        <span class="badge">Puppy for Sale</span>
+        <img src="images/naomi.jpg" alt="Lakshmi Love Naomi" loading="lazy" />
+        <h3>Lakshmi Love Naomi</h3>
+        <div class="meta">(Mittens Sky Veresk &amp; My Simuran Gaea Aria)</div>
+        <ul class="titles"><li>Date of birth: 05.04.2026</li></ul>
+      </div>
+
+      <div class="card">
+        <span class="badge">Puppy for Sale</span>
+        <video src="images/nefertiti.mp4" controls autoplay loop muted playsinline preload="metadata" aria-label="Video of puppy Lakshmi Love Nefertiti"></video>
+        <h3>Lakshmi Love Nefertiti</h3>
+        <div class="meta">(Mittens Sky Veresk &amp; My Simuran Gaea Aria)</div>
+        <ul class="titles"><li>Date of birth: 05.04.2026</li></ul>
       </div>
     </div>
-    <a class="back" href="site_en.html">← Back to home</a>
+
+    <div class="notice">We do not publish puppies for sale until they have reached a safe age and completed their initial health check. This helps future owners make a responsible, informed decision.</div>
+
+    <h2 class="pricing-section-title">Pricing</h2>
+    <p class="intro-text">The estimated prices of puppies and services may vary depending on pedigree, the puppy’s potential, show preparation, and individual requests. The packages below are indicative.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <span class="badge-plan">START</span>
+        <h3>Pet Class</h3>
+        <div class="amount">From RUB 70,000</div>
+        <ul class="price-features">
+          <li>Puppy registration certificate / pedigree</li>
+          <li>Age-appropriate vaccinations</li>
+          <li>Initial grooming</li>
+          <li>Consultation (1 month)</li>
+        </ul>
+        <a href="contacts_en.html#contactForm" class="btn">Enquire</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="badge-plan">SHOW</span>
+        <h3>Show Potential</h3>
+        <div class="amount">From RUB 120,000</div>
+        <ul class="price-features">
+          <li>Promising conformation</li>
+          <li>Consultations for 3 months</li>
+          <li>Basic ring training</li>
+          <li>Starter grooming kit</li>
+        </ul>
+        <a href="contacts_en.html#contactForm" class="btn">Learn More</a>
+      </div>
+
+      <div class="price-card">
+        <span class="badge-plan">ELITE</span>
+        <h3>Breeding / Show</h3>
+        <div class="amount">From RUB 160,000</div>
+        <ul class="price-features">
+          <li>Excellent pedigree</li>
+          <li>Extended consultations for 6 months</li>
+          <li>Personalised nutrition plan</li>
+          <li>Additional show support</li>
+        </ul>
+        <a href="contacts_en.html#contactForm" class="btn">Contact Us</a>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead><tr><th>Feature</th><th>Pet</th><th>Show</th><th>Elite</th></tr></thead>
+        <tbody>
+          <tr><td>Consultations</td><td>1 month</td><td>3 months</td><td>6 months</td></tr>
+          <tr><td>Ring Training</td><td>—</td><td>Basic</td><td>Advanced</td></tr>
+          <tr><td>Genetic Tests</td><td>Upon request</td><td>Basic</td><td>Extended</td></tr>
+          <tr><td>Nutrition Support</td><td>—</td><td>Basic package</td><td>Individual plan</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="price-note">* The final price is calculated individually and may vary. A 20% deposit is required to reserve a puppy. Payment by bank transfer is available under a contract.</p>
+
+    <div class="actions">
+      <a class="btn" href="contacts_en.html#contactForm">Send an Enquiry</a>
+      <a class="btn alt" href="breeders_en.html#breeders">Puppy Parents</a>
+    </div>
+
+    <div class="decor" aria-hidden="true">
+      <svg width="220" height="220" viewBox="0 0 100 100" style="left:10%;bottom:-40px;animation-duration:25s;"><circle cx="20" cy="20" r="8" fill="#d4a373"/><circle cx="50" cy="40" r="6" fill="#c07b50"/><circle cx="70" cy="18" r="4" fill="#d4a373"/><circle cx="85" cy="60" r="7" fill="#c07b50"/><circle cx="40" cy="75" r="10" fill="#d4a373"/></svg>
+      <svg width="240" height="240" viewBox="0 0 100 100" style="right:8%;top:20%;animation-duration:32s;animation-direction:reverse;"><circle cx="30" cy="30" r="10" fill="#c07b50"/><circle cx="60" cy="55" r="7" fill="#d4a373"/><circle cx="80" cy="30" r="5" fill="#c07b50"/><circle cx="50" cy="15" r="6" fill="#d4a373"/><circle cx="28" cy="70" r="9" fill="#c07b50"/></svg>
+    </div>
+
+    <a class="back" href="index_en.html">← Back to Home</a>
   </div>
 </main>
-<footer>© <span id="year"></span> Lakshmi Love — planned litters with care.</footer>
+
+<footer>© <span id="year"></span> Lakshmi Love — responsible litter planning. <br>Contact us to make a preliminary reservation.</footer>
+
 <script>
-const y=document.getElementById('year');y.textContent=new Date().getFullYear();
-window.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>document.body.classList.add('page-ready'));const mb=document.querySelector('.menu-toggle');const wrap=document.querySelector('.nav-collapsible');mb.addEventListener('click',()=>{mb.classList.toggle('active');wrap.classList.toggle('open');});wrap.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(innerWidth<861){mb.classList.remove('active');wrap.classList.remove('open');}}));});
-(function(){const key='siteLang';document.querySelectorAll('.lang-switch a').forEach(a=>a.addEventListener('click',()=>localStorage.setItem(key,a.dataset.lang)));const pref=localStorage.getItem(key);const cur=document.documentElement.lang;if(pref&&pref!==cur){const path=location.pathname.split('/').pop();const base=path.replace(/(_[a-z]{2})?\.html$/,'');const target=base+(pref==='ru'?'':'_'+pref)+'.html';if(target!==path) location.href=target;}})();
-// Central language logic (no per-page switcher)
-(function(){
- const key='siteLang'; const supported=['ru','en','sr'];
- let pref=localStorage.getItem(key); const current=document.documentElement.lang||'en';
- if(!pref || !supported.includes(pref)){ localStorage.setItem(key,current); pref=current; }
- const file=location.pathname.split('/').pop();
- const m=file.match(/^([a-z]+)(?:_([a-z]{2}))?\.html$/);
- const pages=['site','breeders','puppies','contacts'];
- if(m){ const base=m[1]; if(pages.includes(base)){
-   if(pref!==current){ const target=base+(pref==='ru'?'':'_'+pref)+'.html'; if(target!==file){ location.replace(target); return; } }
-   document.querySelectorAll('a[href]').forEach(a=>{ const h=a.getAttribute('href'); if(!h || h.startsWith('#')||h.startsWith('http')||h.startsWith('mailto:')) return; const hm=h.match(/^([a-z]+)(?:_([a-z]{2}))?\.html(.*)$/); if(hm){ const b=hm[1]; if(!pages.includes(b)) return; const suf=pref==='ru'?'' :'_'+pref; a.setAttribute('href', b+suf+'.html'+(hm[3]||'')); } });
- }
- }
-})();
+document.getElementById('year').textContent = new Date().getFullYear();
+
+window.addEventListener('DOMContentLoaded',()=>{
+  requestAnimationFrame(()=>document.body.classList.add('page-ready'));
+  const delegate=(sel,evt,fn)=>document.addEventListener(evt,e=>{const t=e.target.closest(sel);if(t)fn(e,t);});
+  delegate('a[href]:not([href^="#"]):not([target])','click',(e,a)=>{
+    if(a.origin!==location.origin||a.hasAttribute('download'))return;
+    e.preventDefault();
+    const url=a.href;
+    document.body.classList.add('page-fade-out');
+    setTimeout(()=>location.href=url,320);
+  });
+});
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const menuBtn=document.querySelector('.menu-toggle');
+  const navWrap=document.querySelector('.nav-collapsible');
+  menuBtn.addEventListener('click',()=>{
+    menuBtn.classList.toggle('active');
+    navWrap.classList.toggle('open');
+    document.body.classList.toggle('no-scroll',menuBtn.classList.contains('active'));
+  });
+  navWrap.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    if(innerWidth<861){
+      menuBtn.classList.remove('active');
+      navWrap.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    }
+  }));
+});
+
+// Header scroll effect
+const hdr=document.querySelector('header');
+const hdrFn=()=>hdr.classList.toggle('scrolled',scrollY>10);
+window.addEventListener('scroll',hdrFn,{passive:true});
+hdrFn();
+
+// Ripple effect
+function addRip(sel){
+  document.querySelectorAll(sel).forEach(el=>{
+    if(el.dataset.ripple)return;
+    el.dataset.ripple='1';
+    el.classList.add('ripple-wrap');
+    el.addEventListener('pointerdown',e=>{
+      const r=el.getBoundingClientRect();
+      const d=Math.max(r.width,r.height);
+      const s=document.createElement('span');
+      s.className='ripple-ink';
+      s.style.width=s.style.height=d+'px';
+      s.style.left=(e.clientX-r.left-d/2)+'px';
+      s.style.top=(e.clientY-r.top-d/2)+'px';
+      el.appendChild(s);
+      setTimeout(()=>s.remove(),650);
+    },{passive:true});
+  });
+}
+addRip('nav a,.btn,.back');
+
+// Scroll reveal
+const io=new IntersectionObserver(es=>{
+  es.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.classList.add('is-visible');
+      io.unobserve(en.target);
+    }
+  });
+},{threshold:.1});
+
+document.querySelectorAll('.actions .btn').forEach((el,i)=>{
+  el.setAttribute('data-reveal','');
+  setTimeout(()=>io.observe(el),i*120);
+});
 </script>
+<script src="mobile.js" defer></script>
 </body>
 </html>
