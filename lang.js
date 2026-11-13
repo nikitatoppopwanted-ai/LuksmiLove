@@ -1,10 +1,5 @@
 /* Единая логика языка сайта (RU / EN / SR).
-   Подключается в <head> всех страниц: <script src="lang.js"></script>
-   - хранит выбор языка в localStorage под ключом siteLang;
-   - при несовпадении выбранного языка и языка страницы переносит на нужную версию
-     (с сохранением ?query и #hash);
-   - расставляет корректные ссылки в переключателе RU / EN / SR;
-   - переписывает внутренние ссылки меню, кнопок и подвала на файлы текущего языка. */
+   Работает как с .html (локально / GitHub Pages), так и без .html (Cloudflare). */
 (function () {
   'use strict';
 
@@ -16,7 +11,7 @@
     try { return localStorage.getItem(KEY); } catch (e) { return null; }
   }
   function savePref(value) {
-    try { localStorage.setItem(KEY, value); } catch (e) { /* приватный режим и т.п. */ }
+    try { localStorage.setItem(KEY, value); } catch (e) { /* приватный режим */ }
   }
   function suffix(lang) {
     return lang === 'ru' ? '' : '_' + lang;
@@ -25,10 +20,11 @@
   var current = String(document.documentElement.lang || 'ru').toLowerCase().slice(0, 2);
   if (SUPPORTED.indexOf(current) === -1) current = 'ru';
 
-  var file = location.pathname.split('/').pop() || 'index.html';
-  var match = file.match(/^([a-z]+)(?:_(?:ru|en|sr))?\.html$/i);
+  var cleanPath = location.pathname.replace(/\/+$/, '');
+  var file = cleanPath.split('/').pop() || 'index.html';
+  var match = file.match(/^([a-z]+)(?:_(?:ru|en|sr))?(?:\.html)?$/i);
   var base = match ? match[1].toLowerCase() : null;
-  if (!base || PAGES.indexOf(base) === -1) return; // admin.html и прочие служебные страницы
+  if (!base || PAGES.indexOf(base) === -1) return;
 
   var pref = readPref();
   if (SUPPORTED.indexOf(pref) === -1) {
@@ -50,7 +46,8 @@
       a.setAttribute('data-lang', lang);
       a.setAttribute('href', base + suffix(lang) + '.html');
       a.classList.toggle('active', lang === current);
-      a.addEventListener('click', function () { savePref(lang); });
+      a.addEventListener('pointerdown', function () { savePref(lang); }, true);
+      a.addEventListener('click', function () { savePref(lang); }, true);
     });
 
     // 2. Остальные внутренние ссылки ведут на версию текущего языка
