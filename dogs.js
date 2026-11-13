@@ -1,8 +1,5 @@
 /* Загрузка собак из Supabase на страницы breeders.html / breeders_en.html / breeders_sr.html.
-   Подключение (после библиотеки supabase-js):
-     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-     <script src="dogs.js" defer></script>
-   Все данные из базы выводятся через createElement + textContent (без innerHTML). */
+   Все данные выводятся безопасно через createElement + textContent (без innerHTML). */
 (function () {
   'use strict';
 
@@ -39,7 +36,12 @@
 
     var badge = document.createElement('span');
     badge.className = 'badge';
-    badge.textContent = isFemale(dog.category) ? labels.female : labels.male;
+    if (isFemale(dog.category)) {
+      badge.style.background = 'var(--color-accent-dark)';
+      badge.textContent = labels.female;
+    } else {
+      badge.textContent = labels.male;
+    }
     card.appendChild(badge);
 
     var src = safeUrl(dog.image_url);
@@ -55,14 +57,45 @@
     h3.textContent = dog.name || '';
     card.appendChild(h3);
 
-    if (dog.title) {
-      var ul = document.createElement('ul');
-      ul.className = 'titles';
-      var li = document.createElement('li');
-      li.textContent = dog.title;
-      ul.appendChild(li);
-      card.appendChild(ul);
+    if (dog.pedigree) {
+      var meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = dog.pedigree;
+      card.appendChild(meta);
     }
+
+    if (dog.health) {
+      var health = document.createElement('div');
+      health.className = 'health';
+      health.textContent = dog.health;
+      card.appendChild(health);
+    }
+
+    if (dog.temperament) {
+      var temp = document.createElement('div');
+      temp.className = 'meta';
+      temp.textContent = dog.temperament;
+      card.appendChild(temp);
+    }
+
+    if (dog.title) {
+      var items = String(dog.title)
+        .split(/[\n,]+/)
+        .map(function (s) { return s.trim(); })
+        .filter(Boolean);
+
+      if (items.length) {
+        var ul = document.createElement('ul');
+        ul.className = 'titles';
+        items.forEach(function (t) {
+          var li = document.createElement('li');
+          li.textContent = t;
+          ul.appendChild(li);
+        });
+        card.appendChild(ul);
+      }
+    }
+
     return card;
   }
 
@@ -86,7 +119,7 @@
 
     var fragment = document.createDocumentFragment();
     (result.data || []).forEach(function (dog) { fragment.appendChild(buildCard(dog)); });
-    container.prepend(fragment); // новые собаки — в начале списка, самая новая первой
+    container.prepend(fragment);
   }
 
   loadDogs();

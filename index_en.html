@@ -32,7 +32,7 @@ nav{display:flex;align-items:center;}nav ul{list-style:none;display:flex;gap:1.4
 .cta-group{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;} .btn{--btn-bg:var(--color-accent);--btn-color:#fff;cursor:pointer;border:none;padding:.95rem 1.55rem;font:600 .93rem var(--font-body);letter-spacing:.55px;border-radius:42px;background:var(--btn-bg);color:var(--btn-color);position:relative;transition:var(--transition);box-shadow:0 4px 18px -4px rgba(0,0,0,.18);} .btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px -6px rgba(0,0,0,.25);} .btn.outline{background:rgba(255,255,255,.55);color:var(--color-accent-dark);border:1px solid rgba(212,163,115,.35);} .btn.outline:hover{background:rgba(255,255,255,.85);}
 section{padding:clamp(4rem,8vw,6.5rem) 1.5rem;position:relative;} .section-inner{max-width:var(--max-width);margin:0 auto;position:relative;} .divider{width:90px;height:5px;background:var(--gradient-accent);border-radius:6px;margin:0 0 2rem;} .paw-accent{display:inline-flex;justify-content:center;align-items:center;width:38px;height:38px;background:linear-gradient(135deg,#f4e1e8,#fff);border-radius:50%;margin-right:.65rem;font-size:1.05rem;box-shadow:0 4px 14px -6px rgba(0,0,0,.18);border:1px solid rgba(212,163,115,.35);} .lead{font-size:1.05rem;color:var(--color-text-soft);max-width:860px;}
 .features{display:grid;gap:2.2rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:2.2rem;} .card{background:#fff;border:1px solid rgba(0,0,0,.04);padding:1.4rem 1.4rem 1.6rem;border-radius:28px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;gap:.4rem;transition:var(--transition);} .card:hover{transform:translateY(-6px);box-shadow:0 16px 40px -10px rgba(0,0,0,.18);} .card h3{font-size:1.2rem;margin:.2rem 0 .4rem;font-family:var(--font-heading);font-weight:400;letter-spacing:.6px;}
-.gallery-masonry{column-count:4;column-gap:1.15rem;margin-top:2.6rem;} .gallery-masonry figure{break-inside:avoid;position:relative;margin:0 0 1.15rem;border-radius:26px;overflow:hidden;background:#eee;box-shadow:var(--shadow-soft);} .gallery-masonry img{width:100%;opacity:0;transition:transform .85s ease,filter .85s ease,opacity .5s ease;filter:brightness(.95);} .gallery-masonry figure:hover img{transform:scale(1.08);filter:brightness(1);} .gallery-masonry img.is-loaded{opacity:1;filter:brightness(.97);} @media (max-width:1100px){.gallery-masonry{column-count:3;}}@media (max-width:820px){.gallery-masonry{column-count:2;} .gallery-masonry figure{border-radius:22px;}}@media (max-width:520px){.gallery-masonry{column-count:1;}}
+.gallery-masonry{column-count:4;column-gap:1.15rem;margin-top:2.6rem;} .gallery-masonry figure{break-inside:avoid;position:relative;margin:0 0 1.15rem;border-radius:26px;overflow:hidden;background:#eee;box-shadow:var(--shadow-soft);} .gallery-masonry img{width:100%;opacity:1;transition:transform .85s ease,filter .85s ease,opacity .5s ease;filter:brightness(.95);} .gallery-masonry figure:hover img{transform:scale(1.08);filter:brightness(1);} .gallery-masonry img.is-loaded{opacity:1;filter:brightness(.97);} @media (max-width:1100px){.gallery-masonry{column-count:3;}}@media (max-width:820px){.gallery-masonry{column-count:2;} .gallery-masonry figure{border-radius:22px;}}@media (max-width:520px){.gallery-masonry{column-count:1;}}
 footer{background:#fff;border-top:1px solid rgba(0,0,0,.08);padding:2.5rem 1.5rem;text-align:center;font-size:.85rem;color:var(--color-text-soft);}
 @media (max-width:640px){header.site-header{height:72px;} .hero{padding-top:4rem;} .btn{width:100%;}}
 </style>
@@ -47,7 +47,7 @@ header.site-header.scrolled{background:rgba(255,255,255,.9);box-shadow:0 8px 28p
 @keyframes ripple{to{transform:translate(-50%,-50%) scale(12);opacity:0;}}
 [data-tilt]{will-change:transform;transform:perspective(900px) rotateX(var(--tiltX,0)) rotateY(var(--tiltY,0));transition:transform .85s cubic-bezier(.25,.6,.25,1);} [data-tilt]:hover{transition:transform .25s cubic-bezier(.25,.6,.25,1);}
 @media (max-width:600px){.features{display:flex;overflow-x:auto;gap:1rem;padding:.4rem .2rem 1rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}.features .card{min-width:75%;scroll-snap-align:start;} .features::-webkit-scrollbar{height:8px;} .features::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:40px;}}
-.gallery-masonry figure{transition:transform .8s ease,box-shadow .6s ease,opacity .6s ease;opacity:0;}
+.gallery-masonry figure{transition:transform .8s ease,box-shadow .6s ease,opacity .6s ease;opacity:1;}
 .gallery-masonry figure.show{opacity:1;}
 .stat h3{position:relative;}
 .stat h3::after{content:"";position:absolute;left:50%;bottom:-6px;width:0;height:3px;background:linear-gradient(90deg,var(--color-accent-dark),transparent);transform:translateX(-50%);border-radius:4px;transition:.6s cubic-bezier(.4,0,.2,1);} .stat:hover h3::after{width:70%;}
@@ -107,11 +107,11 @@ header.site-header.scrolled{background:rgba(255,255,255,.9);box-shadow:0 8px 28p
     <div class="divider" aria-hidden="true"></div>
     <h2><span class="paw-accent" aria-hidden="true">🐾</span>Gallery</h2>
     <div class="gallery-masonry" id="gallery-grid">
-      <figure><img src="images/photo_2025-10-08_11-29-58.jpg" alt="Yorkshire Terrier" loading="lazy" class="blur-up"></figure>
-      <figure><img src="images/photo_2025-10-08_11-29-59.jpg" alt="Yorkshire Terrier" loading="lazy" class="blur-up"></figure>
-      <figure><img src="images/123.jpg" alt="Yorkshire Terrier" loading="lazy" class="blur-up"></figure>
-      <figure><img src="images/photo_2025-10-08_11-30-01.jpg" alt="Yorkshire Terrier" loading="lazy" class="blur-up"></figure>
-      <figure><img src="images/photo_2025-10-08_11-30-02.jpg" alt="Yorkshire Terrier" loading="lazy" class="blur-up"></figure>
+      <figure><img src="images/photo_2025-10-08_11-29-58.jpg" alt="Yorkshire Terrier" decoding="async"></figure>
+      <figure><img src="images/photo_2025-10-08_11-29-59.jpg" alt="Yorkshire Terrier" decoding="async"></figure>
+      <figure><img src="images/123.jpg" alt="Yorkshire Terrier" decoding="async"></figure>
+      <figure><img src="images/photo_2025-10-08_11-30-01.jpg" alt="Yorkshire Terrier" decoding="async"></figure>
+      <figure><img src="images/photo_2025-10-08_11-30-02.jpg" alt="Yorkshire Terrier" decoding="async"></figure>
     </div>
   </div>
 </section>

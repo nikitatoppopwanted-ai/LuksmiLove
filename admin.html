@@ -41,6 +41,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 10px;
 }
 
 .logo {
@@ -61,7 +62,7 @@ body {
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
 .btn-logout {
@@ -78,6 +79,35 @@ body {
 .btn-logout:hover {
     background: #eadfd4;
     color: #3d352e;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    background: #f4eee7;
+    padding: 5px;
+    border-radius: 12px;
+    border: 1px solid #eadfd4;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    color: #705b53;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.tab-btn.active {
+    background: #fff;
+    color: #3d352e;
+    box-shadow: 0 2px 8px rgba(61,53,46,.08);
 }
 
 h2 {
@@ -98,19 +128,25 @@ label {
     margin-bottom: 8px;
 }
 
-input, select {
+input, select, textarea {
     width: 100%;
     padding: 12px 14px;
     border: 1px solid #e8ded4;
     border-radius: 10px;
     background: #fff;
     font-size: 14px;
+    font-family: inherit;
     color: #3d352e;
     outline: none;
     transition: .2s;
 }
 
-input:focus, select:focus {
+textarea {
+    resize: vertical;
+    min-height: 86px;
+}
+
+input:focus, select:focus, textarea:focus {
     border-color: #c58a60;
     box-shadow: 0 0 0 3px rgba(197,138,96,.12);
 }
@@ -137,7 +173,7 @@ input:focus, select:focus {
     cursor: wait;
 }
 
-#statusBox, #loginStatus {
+.status-box {
     display: none;
     margin-top: 15px;
     padding: 12px;
@@ -161,11 +197,12 @@ input:focus, select:focus {
 .preview {
     display: none;
     margin-top: 12px;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     object-fit: cover;
     border-radius: 12px;
     border: 1px solid #eadfd4;
+    background: #111;
 }
 
 .divider {
@@ -174,8 +211,7 @@ input:focus, select:focus {
     border-top: 1px solid #eadfd4;
 }
 
-/* Список собак */
-.dogs-list {
+.items-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -184,7 +220,7 @@ input:focus, select:focus {
     padding-right: 5px;
 }
 
-.dog-item {
+.list-item {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -194,20 +230,22 @@ input:focus, select:focus {
     border-radius: 12px;
 }
 
-.dog-item img {
+.list-item img, .list-item video {
     width: 50px;
     height: 50px;
     border-radius: 8px;
     object-fit: cover;
     border: 1px solid #eadfd4;
+    background: #111;
+    flex-shrink: 0;
 }
 
-.dog-info {
+.item-info {
     flex: 1;
     min-width: 0;
 }
 
-.dog-name {
+.item-name {
     font-size: 14px;
     font-weight: 600;
     color: #3d352e;
@@ -216,10 +254,13 @@ input:focus, select:focus {
     text-overflow: ellipsis;
 }
 
-.dog-sub {
+.item-sub {
     font-size: 11px;
     color: #a18e7e;
     margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn-delete {
@@ -264,25 +305,25 @@ input:focus, select:focus {
 
 <div class="admin-card">
 
-<div class="top-bar">
+    <div class="top-bar">
         <div>
             <a class="logo" href="index.html" aria-label="Lakshmi Love — на главную">Lakshmi <span>Love</span></a>
             <div class="subtitle">Панель управления питомником</div>
         </div>
         <div style="display: flex; gap: 8px; align-items: center;">
-            <a href="breeders.html" class="btn-logout" style="text-decoration: none; display: inline-flex; align-items: center;">
+            <a id="backSiteLink" href="breeders.html" class="btn-logout" style="text-decoration: none; display: inline-flex; align-items: center;">
                 ← На сайт
             </a>
             <button id="logoutBtn" class="btn-logout hidden" type="button">Выйти</button>
         </div>
     </div>
-    <!-- 1. ЭКРАН ВХОДА (виден только неавторизованным) -->
+
+    <!-- 1. ЭКРАН ВХОДА -->
     <div id="loginSection">
         <h2>Вход для администратора</h2>
         <form id="loginForm">
             <div class="form-group">
                 <label for="loginEmail">Email</label>
-                <!-- Нейтральная подсказка, реальная почта нигде не отображается -->
                 <input type="email" id="loginEmail" placeholder="Введите ваш email" autocomplete="username" required>
             </div>
             <div class="form-group">
@@ -290,50 +331,119 @@ input:focus, select:focus {
                 <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required>
             </div>
             <button type="submit" id="loginBtn" class="btn-submit">Войти</button>
-            <div id="loginStatus"></div>
+            <div id="loginStatus" class="status-box"></div>
         </form>
     </div>
 
-    <!-- 2. ЭКРАН АДМИНКИ (открывается только после успешного входа) -->
+    <!-- 2. ЭКРАН АДМИНКИ -->
     <div id="adminSection" class="hidden">
-        <h2>Добавить собаку</h2>
 
-        <form id="dogForm">
-            <div class="form-group">
-                <label for="name">Кличка собаки</label>
-                <input type="text" id="name" placeholder="Например: Split Shot" maxlength="120" required>
-            </div>
-
-            <div class="form-group">
-                <label for="title">Титулы и награды</label>
-                <input type="text" id="title" placeholder="Например: Чемпион России, Чемпион РКФ" maxlength="500">
-            </div>
-
-            <div class="form-group">
-                <label for="category">Категория</label>
-                <select id="category" required>
-                    <option value="" disabled selected>Выберите категорию</option>
-                    <option value="производитель">Производитель</option>
-                    <option value="производительница">Производительница</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="photo">Фотография</label>
-                <input type="file" id="photo" accept="image/*" required>
-                <img id="preview" class="preview" alt="Предпросмотр фото">
-            </div>
-
-            <button type="submit" id="submitBtn" class="btn-submit">Добавить собаку</button>
-            <div id="statusBox"></div>
-        </form>
-
-        <hr class="divider">
-
-        <h2>Список собак (удаление)</h2>
-        <div id="dogsList" class="dogs-list">
-            <div class="empty-text">Загрузка...</div>
+        <div class="tabs" role="tablist">
+            <button type="button" class="tab-btn active" id="tabDogsBtn" role="tab" aria-selected="true">Производители</button>
+            <button type="button" class="tab-btn" id="tabPuppiesBtn" role="tab" aria-selected="false">Щенки</button>
         </div>
+
+        <!-- ВКЛАДКА: ПРОИЗВОДИТЕЛИ -->
+        <div id="dogsPanel">
+            <h2>Добавить собаку</h2>
+
+            <form id="dogForm">
+                <div class="form-group">
+                    <label for="name">Кличка собаки</label>
+                    <input type="text" id="name" placeholder="Например: Split Shot" maxlength="120" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pedigree">Происхождение (родители)</label>
+                    <input type="text" id="pedigree" placeholder="Например: (Mittens Sky Igrok & My Simuran Mamba Italiano)" maxlength="300">
+                </div>
+
+                <div class="form-group">
+                    <label for="health">Здоровье и тесты</label>
+                    <input type="text" id="health" placeholder="Например: 0/0, T1" maxlength="200">
+                </div>
+
+                <div class="form-group">
+                    <label for="temperament">Темперамент / характер</label>
+                    <input type="text" id="temperament" placeholder="Например: Ласковый, уравновешенный, контактный" maxlength="300">
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Титулы и награды (через запятую или с новой строки)</label>
+                    <textarea id="title" placeholder="Например:&#10;Чемпион России&#10;Чемпион РКФ" maxlength="1000"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Категория</label>
+                    <select id="category" required>
+                        <option value="" disabled selected>Выберите категорию</option>
+                        <option value="производитель">Производитель</option>
+                        <option value="производительница">Производительница</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo">Фотография</label>
+                    <input type="file" id="photo" accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/heic" required>
+                    <img id="preview" class="preview" alt="Предпросмотр фото">
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">Добавить собаку</button>
+                <div id="statusBox" class="status-box"></div>
+            </form>
+
+            <hr class="divider">
+
+            <h2>Список собак (удаление)</h2>
+            <div id="dogsList" class="items-list">
+                <div class="empty-text">Загрузка...</div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: ЩЕНКИ -->
+        <div id="puppiesPanel" class="hidden">
+            <h2>Добавить щенка</h2>
+
+            <form id="puppyForm">
+                <div class="form-group">
+                    <label for="puppyName">Кличка щенка</label>
+                    <input type="text" id="puppyName" placeholder="Например: Lakshmi Love Noritake" maxlength="120" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="puppyParents">Родители</label>
+                    <input type="text" id="puppyParents" placeholder="Например: (Mittens Sky Veresk & My Simuran Gaea Aria)" maxlength="300">
+                </div>
+
+                <div class="form-group">
+                    <label for="puppyBirthDate">Дата рождения</label>
+                    <input type="text" id="puppyBirthDate" placeholder="Например: 05.04.2026" maxlength="50">
+                </div>
+
+                <div class="form-group">
+                    <label for="puppyDetails">Дополнительно (пол, статус, описание — через запятую или с новой строки)</label>
+                    <textarea id="puppyDetails" placeholder="Например: Девочка&#10;Свободна для резерва" maxlength="500"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="puppyMedia">Фотография или видео (MP4 / WEBM / MOV до 30 МБ)</label>
+                    <input type="file" id="puppyMedia" accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/heic,video/mp4,video/webm,video/quicktime" required>
+                    <img id="puppyImgPreview" class="preview" alt="Предпросмотр фото щенка">
+                    <video id="puppyVideoPreview" class="preview" controls muted playsinline></video>
+                </div>
+
+                <button type="submit" id="puppySubmitBtn" class="btn-submit">Добавить щенка</button>
+                <div id="puppyStatusBox" class="status-box"></div>
+            </form>
+
+            <hr class="divider">
+
+            <h2>Список щенков (удаление)</h2>
+            <div id="puppiesList" class="items-list">
+                <div class="empty-text">Загрузка...</div>
+            </div>
+        </div>
+
     </div>
 
     <div class="note">
@@ -347,19 +457,29 @@ const SUPABASE_URL = 'https://zbazddnakicxxtbhjvzz.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_uAReKc7ntb_Ctbquh8tPTw_9o6v8ozF';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Единственный разрешенный администратор
 const ADMIN_EMAIL = 'left4bleood@gmail.com';
-
 const BUCKET_NAME = 'dogs-photos';
-const TABLE_NAME = 'dogs';
+const DOGS_TABLE = 'dogs';
+const PUPPIES_TABLE = 'puppies';
 
-// Элементы страницы
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10 МБ
+const MAX_VIDEO_SIZE = 30 * 1024 * 1024; // 30 МБ
+const IMAGE_EXTS = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif', 'heic'];
+const VIDEO_EXTS = ['mp4', 'webm', 'mov'];
+
+// Элементы интерфейса
 const loginSection = document.getElementById('loginSection');
 const adminSection = document.getElementById('adminSection');
 const logoutBtn = document.getElementById('logoutBtn');
+const backSiteLink = document.getElementById('backSiteLink');
 const loginForm = document.getElementById('loginForm');
 const loginStatus = document.getElementById('loginStatus');
 const loginBtn = document.getElementById('loginBtn');
+
+const tabDogsBtn = document.getElementById('tabDogsBtn');
+const tabPuppiesBtn = document.getElementById('tabPuppiesBtn');
+const dogsPanel = document.getElementById('dogsPanel');
+const puppiesPanel = document.getElementById('puppiesPanel');
 
 const dogForm = document.getElementById('dogForm');
 const submitBtn = document.getElementById('submitBtn');
@@ -368,20 +488,38 @@ const photoInput = document.getElementById('photo');
 const preview = document.getElementById('preview');
 const dogsList = document.getElementById('dogsList');
 
-// ------------------------------------------
-// 1. ПРОВЕРКА СЕССИИ ПРИ ЗАПУСКЕ
-// ------------------------------------------
-async function checkAuth() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
+const puppyForm = document.getElementById('puppyForm');
+const puppySubmitBtn = document.getElementById('puppySubmitBtn');
+const puppyStatusBox = document.getElementById('puppyStatusBox');
+const puppyMediaInput = document.getElementById('puppyMedia');
+const puppyImgPreview = document.getElementById('puppyImgPreview');
+const puppyVideoPreview = document.getElementById('puppyVideoPreview');
+const puppiesList = document.getElementById('puppiesList');
 
-    // Проверяем: сессия активна И email строго совпадает с вашим
-    if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+// ------------------------------------------
+// 1. АВТОРИЗАЦИЯ И БЕЗОПАСНОСТЬ
+// ------------------------------------------
+async function isAdminSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    return Boolean(
+        session &&
+        session.user &&
+        session.user.email &&
+        session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()
+    );
+}
+
+async function checkAuth() {
+    const ok = await isAdminSession();
+
+    if (ok) {
         loginSection.classList.add('hidden');
         adminSection.classList.remove('hidden');
         logoutBtn.classList.remove('hidden');
         loadDogs();
+        loadPuppies();
     } else {
-        // Если зашел чужой аккаунт — принудительно разлогиниваем
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) {
             await supabaseClient.auth.signOut();
         }
@@ -391,52 +529,140 @@ async function checkAuth() {
     }
 }
 
-// Вход в систему
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    loginStatus.className = '';
+    loginStatus.className = 'status-box';
     loginStatus.textContent = '';
 
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
 
-    // Защита: отклоняем любую попытку входа с чужим email
     if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
         loginStatus.textContent = 'Доступ запрещен: этот email не является администратором.';
-        loginStatus.className = 'status-error';
+        loginStatus.className = 'status-box status-error';
         return;
     }
 
     loginBtn.disabled = true;
     loginBtn.textContent = 'Проверка...';
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-    });
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
     loginBtn.disabled = false;
     loginBtn.textContent = 'Войти';
 
     if (error) {
         loginStatus.textContent = 'Неверный пароль!';
-        loginStatus.className = 'status-error';
+        loginStatus.className = 'status-box status-error';
     } else {
         checkAuth();
     }
 });
 
-// Выход
-async function logout() {
+logoutBtn.addEventListener('click', async () => {
     await supabaseClient.auth.signOut();
     checkAuth();
-}
-logoutBtn.addEventListener('click', logout);
+});
 
-// Предпросмотр изображения
+// Переключение вкладок
+function switchTab(tab) {
+    const isDogs = tab === 'dogs';
+    tabDogsBtn.classList.toggle('active', isDogs);
+    tabPuppiesBtn.classList.toggle('active', !isDogs);
+    tabDogsBtn.setAttribute('aria-selected', String(isDogs));
+    tabPuppiesBtn.setAttribute('aria-selected', String(!isDogs));
+    dogsPanel.classList.toggle('hidden', !isDogs);
+    puppiesPanel.classList.toggle('hidden', isDogs);
+    backSiteLink.href = isDogs ? 'breeders.html' : 'puppies.html';
+}
+tabDogsBtn.addEventListener('click', () => switchTab('dogs'));
+tabPuppiesBtn.addEventListener('click', () => switchTab('puppies'));
+
+// ------------------------------------------
+// 2. ОБЩИЕ УТИЛИТЫ
+// ------------------------------------------
+function showBox(box, text, type) {
+    box.textContent = text;
+    box.className = 'status-box ' + (type === 'success' ? 'status-success' : 'status-error');
+}
+
+function safeUrl(value) {
+    try {
+        const u = new URL(String(value || ''), location.href);
+        return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : '';
+    } catch (e) {
+        return '';
+    }
+}
+
+function getStoragePath(url) {
+    if (!url) return '';
+    try {
+        const marker = `/${BUCKET_NAME}/`;
+        const idx = url.indexOf(marker);
+        if (idx !== -1) {
+            return decodeURIComponent(url.slice(idx + marker.length).split('?')[0]);
+        }
+        return decodeURIComponent(url.split('/').pop().split('?')[0]);
+    } catch (e) {
+        return '';
+    }
+}
+
+function setListMessage(container, text, isError) {
+    container.replaceChildren();
+    const msg = document.createElement('div');
+    msg.className = 'empty-text';
+    if (isError) msg.style.color = '#c81e1e';
+    msg.textContent = text;
+    container.appendChild(msg);
+}
+
+function validateMediaFile(file, allowVideo) {
+    if (!file) return { error: 'Файл не выбран.' };
+
+    const rawExt = (file.name.split('.').pop() || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const mime = String(file.type || '').toLowerCase();
+
+    if (mime.includes('svg') || rawExt === 'svg') {
+        return { error: 'Формат SVG запрещен в целях безопасности. Выберите JPG, PNG или WEBP.' };
+    }
+
+    const isVideo = mime.startsWith('video/') || (!mime && VIDEO_EXTS.indexOf(rawExt) !== -1);
+    const isImage = mime.startsWith('image/') || (!mime && IMAGE_EXTS.indexOf(rawExt) !== -1);
+
+    if (isVideo) {
+        if (!allowVideo) return { error: 'Для производителей можно загружать только фотографии.' };
+        if (VIDEO_EXTS.indexOf(rawExt) === -1 && !/^video\/(mp4|webm|quicktime)$/.test(mime)) {
+            return { error: 'Поддерживаются только видео MP4, WEBM или MOV.' };
+        }
+        if (file.size > MAX_VIDEO_SIZE) return { error: 'Размер видео не должен превышать 30 МБ.' };
+        const ext = VIDEO_EXTS.indexOf(rawExt) !== -1 ? rawExt : 'mp4';
+        return { mediaType: 'video', ext };
+    }
+
+    if (isImage) {
+        if (file.size > MAX_IMAGE_SIZE) return { error: 'Размер фото не должен превышать 10 МБ.' };
+        const ext = IMAGE_EXTS.indexOf(rawExt) !== -1 ? rawExt : 'jpg';
+        return { mediaType: 'image', ext };
+    }
+
+    return { error: allowVideo ? 'Можно загружать только фото или видео.' : 'Можно загружать только изображения.' };
+}
+
+// ------------------------------------------
+// 3. ПРОИЗВОДИТЕЛИ (ДОБАВЛЕНИЕ И УДАЛЕНИЕ)
+// ------------------------------------------
 photoInput.addEventListener('change', function() {
     const file = this.files[0];
     if (!file) {
+        preview.style.display = 'none';
+        return;
+    }
+    const check = validateMediaFile(file, false);
+    if (check.error) {
+        showBox(statusBox, check.error, 'error');
+        this.value = '';
         preview.style.display = 'none';
         return;
     }
@@ -448,54 +674,27 @@ photoInput.addEventListener('change', function() {
     reader.readAsDataURL(file);
 });
 
-function showStatus(text, type) {
-    statusBox.textContent = text;
-    statusBox.className = type === 'success' ? 'status-success' : 'status-error';
-}
-
-// ------------------------------------------
-// 2. ЗАГРУЗКА СПИСКА СОБАК (УДАЛЕНИЕ)
-// ------------------------------------------
-function safeUrl(value) {
-    try {
-        const u = new URL(String(value || ''), location.href);
-        return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : '';
-    } catch (e) {
-        return '';
-    }
-}
-
-function setListMessage(text, isError) {
-    dogsList.replaceChildren();
-    const msg = document.createElement('div');
-    msg.className = 'empty-text';
-    if (isError) msg.style.color = '#c81e1e';
-    msg.textContent = text;
-    dogsList.appendChild(msg);
-}
-
 async function loadDogs() {
-    setListMessage('Загрузка списка...');
+    setListMessage(dogsList, 'Загрузка списка...');
 
     const { data: dogs, error } = await supabaseClient
-        .from(TABLE_NAME)
+        .from(DOGS_TABLE)
         .select('*')
         .order('id', { ascending: false });
 
     if (error) {
-        setListMessage('Ошибка: ' + error.message, true);
+        setListMessage(dogsList, 'Ошибка: ' + error.message, true);
         return;
     }
-
     if (!dogs || dogs.length === 0) {
-        setListMessage('Собак в базе пока нет');
+        setListMessage(dogsList, 'Собак в базе пока нет');
         return;
     }
 
     dogsList.replaceChildren();
     dogs.forEach(dog => {
         const item = document.createElement('div');
-        item.className = 'dog-item';
+        item.className = 'list-item';
 
         const img = document.createElement('img');
         const src = safeUrl(dog.image_url);
@@ -503,15 +702,15 @@ async function loadDogs() {
         img.alt = dog.name || '';
 
         const info = document.createElement('div');
-        info.className = 'dog-info';
+        info.className = 'item-info';
 
         const name = document.createElement('div');
-        name.className = 'dog-name';
+        name.className = 'item-name';
         name.textContent = dog.name || '';
 
         const sub = document.createElement('div');
-        sub.className = 'dog-sub';
-        sub.textContent = (dog.category || '') + ' ' + (dog.title ? '• ' + dog.title : '');
+        sub.className = 'item-sub';
+        sub.textContent = [dog.category, dog.health, dog.title].filter(Boolean).join(' • ');
 
         info.append(name, sub);
 
@@ -526,66 +725,66 @@ async function loadDogs() {
     });
 }
 
-// ------------------------------------------
-// 3. УДАЛЕНИЕ СОБАКИ
-// ------------------------------------------
 async function deleteDog(dogId, imageUrl) {
+    if (!(await isAdminSession())) { checkAuth(); return; }
     if (!confirm('Вы точно хотите удалить эту собаку?')) return;
 
     try {
-        // Удаляем из таблицы dogs
         const { error: dbError } = await supabaseClient
-            .from(TABLE_NAME)
+            .from(DOGS_TABLE)
             .delete()
             .eq('id', dogId);
 
         if (dbError) throw new Error(dbError.message);
 
-        // Удаляем фото из хранилища dogs-photos
-        try {
-            const fileName = imageUrl ? decodeURIComponent(imageUrl.split('/').pop().split('?')[0]) : '';
-            if (fileName) {
-                await supabaseClient.storage.from(BUCKET_NAME).remove([fileName]);
-            }
-        } catch (e) {
-            console.warn('Не удалось удалить файл из хранилища:', e);
+        const storagePath = getStoragePath(imageUrl);
+        if (storagePath) {
+            await supabaseClient.storage.from(BUCKET_NAME).remove([storagePath]);
         }
 
-        showStatus('✓ Собака успешно удалена!', 'success');
+        showBox(statusBox, '✓ Собака успешно удалена!', 'success');
         loadDogs();
     } catch (err) {
         alert('Ошибка при удалении: ' + err.message);
     }
 }
 
-// ------------------------------------------
-// 4. ДОБАВЛЕНИЕ НОВОЙ СОБАКИ
-// ------------------------------------------
 dogForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    statusBox.className = '';
+    statusBox.className = 'status-box';
     statusBox.textContent = '';
 
+    if (!(await isAdminSession())) {
+        showBox(statusBox, 'Сессия истекла. Войдите заново.', 'error');
+        checkAuth();
+        return;
+    }
+
     const name = document.getElementById('name').value.trim();
+    const pedigree = document.getElementById('pedigree').value.trim();
+    const health = document.getElementById('health').value.trim();
+    const temperament = document.getElementById('temperament').value.trim();
     const title = document.getElementById('title').value.trim();
     const category = document.getElementById('category').value;
     const file = photoInput.files[0];
 
     if (!name || !category || !file) {
-        showStatus('Пожалуйста, заполните все обязательные поля.', 'error');
+        showBox(statusBox, 'Пожалуйста, заполните все обязательные поля.', 'error');
+        return;
+    }
+
+    const check = validateMediaFile(file, false);
+    if (check.error) {
+        showBox(statusBox, check.error, 'error');
         return;
     }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Загрузка фото...';
-
     let uploadedPath = null;
 
     try {
-        const ext = file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
-        const fileName = `${crypto.randomUUID()}.${ext}`;
-
-        // 1. Загрузка в бакет
+        const fileName = `${crypto.randomUUID()}.${check.ext}`;
         const { data: uploadData, error: uploadError } = await supabaseClient.storage
             .from(BUCKET_NAME)
             .upload(fileName, file, { cacheControl: '3600', upsert: false });
@@ -593,29 +792,31 @@ dogForm.addEventListener('submit', async function(e) {
         if (uploadError) throw new Error('Ошибка загрузки фото: ' + uploadError.message);
         uploadedPath = uploadData.path;
 
-        // 2. Получение ссылки
         const { data: publicData } = supabaseClient.storage
             .from(BUCKET_NAME)
             .getPublicUrl(uploadedPath);
 
-        const imageUrl = publicData.publicUrl;
-
-        // 3. Запись в базу
         submitBtn.textContent = 'Сохранение данных...';
         const { error: insertError } = await supabaseClient
-            .from(TABLE_NAME)
-            .insert([{ name, title, category, image_url: imageUrl }]);
+            .from(DOGS_TABLE)
+            .insert([{
+                name,
+                pedigree: pedigree || null,
+                health: health || null,
+                temperament: temperament || null,
+                title: title || null,
+                category,
+                image_url: publicData.publicUrl
+            }]);
 
         if (insertError) throw new Error('Ошибка сохранения: ' + insertError.message);
 
-        showStatus('✓ Собака успешно добавлена!', 'success');
+        showBox(statusBox, '✓ Собака успешно добавлена!', 'success');
         dogForm.reset();
         preview.style.display = 'none';
-
         loadDogs();
-
     } catch (err) {
-        showStatus('Ошибка: ' + err.message, 'error');
+        showBox(statusBox, 'Ошибка: ' + err.message, 'error');
         if (uploadedPath) {
             await supabaseClient.storage.from(BUCKET_NAME).remove([uploadedPath]);
         }
@@ -625,7 +826,207 @@ dogForm.addEventListener('submit', async function(e) {
     }
 });
 
-// Проверка сессии при открытии страницы
+// ------------------------------------------
+// 4. ЩЕНКИ (ДОБАВЛЕНИЕ И УДАЛЕНИЕ)
+// ------------------------------------------
+let puppyVideoObjectUrl = null;
+
+function clearPuppyPreviews() {
+    puppyImgPreview.style.display = 'none';
+    puppyImgPreview.removeAttribute('src');
+    puppyVideoPreview.style.display = 'none';
+    puppyVideoPreview.removeAttribute('src');
+    puppyVideoPreview.load();
+    if (puppyVideoObjectUrl) {
+        URL.revokeObjectURL(puppyVideoObjectUrl);
+        puppyVideoObjectUrl = null;
+    }
+}
+
+puppyMediaInput.addEventListener('change', function() {
+    clearPuppyPreviews();
+    const file = this.files[0];
+    if (!file) return;
+
+    const check = validateMediaFile(file, true);
+    if (check.error) {
+        showBox(puppyStatusBox, check.error, 'error');
+        this.value = '';
+        return;
+    }
+
+    if (check.mediaType === 'video') {
+        puppyVideoObjectUrl = URL.createObjectURL(file);
+        puppyVideoPreview.src = puppyVideoObjectUrl;
+        puppyVideoPreview.style.display = 'block';
+    } else {
+        const reader = new FileReader();
+        reader.onload = e => {
+            puppyImgPreview.src = e.target.result;
+            puppyImgPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+async function loadPuppies() {
+    setListMessage(puppiesList, 'Загрузка списка...');
+
+    const { data: puppies, error } = await supabaseClient
+        .from(PUPPIES_TABLE)
+        .select('*')
+        .order('id', { ascending: false });
+
+    if (error) {
+        setListMessage(puppiesList, 'Ошибка: ' + error.message, true);
+        return;
+    }
+    if (!puppies || puppies.length === 0) {
+        setListMessage(puppiesList, 'Щенков в базе пока нет');
+        return;
+    }
+
+    puppiesList.replaceChildren();
+    puppies.forEach(puppy => {
+        const item = document.createElement('div');
+        item.className = 'list-item';
+
+        const src = safeUrl(puppy.media_url);
+        if (puppy.media_type === 'video') {
+            const video = document.createElement('video');
+            if (src) video.src = src;
+            video.muted = true;
+            video.preload = 'metadata';
+            item.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            if (src) img.src = src;
+            img.alt = puppy.name || '';
+            item.appendChild(img);
+        }
+
+        const info = document.createElement('div');
+        info.className = 'item-info';
+
+        const name = document.createElement('div');
+        name.className = 'item-name';
+        name.textContent = puppy.name || '';
+
+        const sub = document.createElement('div');
+        sub.className = 'item-sub';
+        sub.textContent = [puppy.birth_date, puppy.parents, puppy.details].filter(Boolean).join(' • ');
+
+        info.append(name, sub);
+
+        const delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'btn-delete';
+        delBtn.textContent = 'Удалить';
+        delBtn.addEventListener('click', () => deletePuppy(puppy.id, puppy.media_url));
+
+        item.append(info, delBtn);
+        puppiesList.appendChild(item);
+    });
+}
+
+async function deletePuppy(puppyId, mediaUrl) {
+    if (!(await isAdminSession())) { checkAuth(); return; }
+    if (!confirm('Вы точно хотите удалить этого щенка?')) return;
+
+    try {
+        const { error: dbError } = await supabaseClient
+            .from(PUPPIES_TABLE)
+            .delete()
+            .eq('id', puppyId);
+
+        if (dbError) throw new Error(dbError.message);
+
+        const storagePath = getStoragePath(mediaUrl);
+        if (storagePath) {
+            await supabaseClient.storage.from(BUCKET_NAME).remove([storagePath]);
+        }
+
+        showBox(puppyStatusBox, '✓ Щенок успешно удален!', 'success');
+        loadPuppies();
+    } catch (err) {
+        alert('Ошибка при удалении: ' + err.message);
+    }
+}
+
+puppyForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    puppyStatusBox.className = 'status-box';
+    puppyStatusBox.textContent = '';
+
+    if (!(await isAdminSession())) {
+        showBox(puppyStatusBox, 'Сессия истекла. Войдите заново.', 'error');
+        checkAuth();
+        return;
+    }
+
+    const name = document.getElementById('puppyName').value.trim();
+    const parents = document.getElementById('puppyParents').value.trim();
+    const birthDate = document.getElementById('puppyBirthDate').value.trim();
+    const details = document.getElementById('puppyDetails').value.trim();
+    const file = puppyMediaInput.files[0];
+
+    if (!name || !file) {
+        showBox(puppyStatusBox, 'Пожалуйста, укажите кличку и выберите фото или видео.', 'error');
+        return;
+    }
+
+    const check = validateMediaFile(file, true);
+    if (check.error) {
+        showBox(puppyStatusBox, check.error, 'error');
+        return;
+    }
+
+    puppySubmitBtn.disabled = true;
+    puppySubmitBtn.textContent = 'Загрузка файла...';
+    let uploadedPath = null;
+
+    try {
+        const fileName = `puppies/${crypto.randomUUID()}.${check.ext}`;
+        const { data: uploadData, error: uploadError } = await supabaseClient.storage
+            .from(BUCKET_NAME)
+            .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+        if (uploadError) throw new Error('Ошибка загрузки файла: ' + uploadError.message);
+        uploadedPath = uploadData.path;
+
+        const { data: publicData } = supabaseClient.storage
+            .from(BUCKET_NAME)
+            .getPublicUrl(uploadedPath);
+
+        puppySubmitBtn.textContent = 'Сохранение данных...';
+        const { error: insertError } = await supabaseClient
+            .from(PUPPIES_TABLE)
+            .insert([{
+                name,
+                parents: parents || null,
+                birth_date: birthDate || null,
+                details: details || null,
+                media_url: publicData.publicUrl,
+                media_type: check.mediaType
+            }]);
+
+        if (insertError) throw new Error('Ошибка сохранения: ' + insertError.message);
+
+        showBox(puppyStatusBox, '✓ Щенок успешно добавлен!', 'success');
+        puppyForm.reset();
+        clearPuppyPreviews();
+        loadPuppies();
+    } catch (err) {
+        showBox(puppyStatusBox, 'Ошибка: ' + err.message, 'error');
+        if (uploadedPath) {
+            await supabaseClient.storage.from(BUCKET_NAME).remove([uploadedPath]);
+        }
+    } finally {
+        puppySubmitBtn.disabled = false;
+        puppySubmitBtn.textContent = 'Добавить щенка';
+    }
+});
+
 document.addEventListener('DOMContentLoaded', checkAuth);
 </script>
 

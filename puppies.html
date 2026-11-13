@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet" />
 <script src="lang.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="puppies.js" defer></script>
 <style>
 :root { --color-bg:#fdf9f6; --color-accent:#d4a373; --color-accent-dark:#c07b50; --color-text:#3b2f2f; --radius:26px; --max-width:1180px; --transition:.35s cubic-bezier(.4,0,.2,1); --shadow-soft:0 8px 28px -6px rgba(0,0,0,.08),0 2px 6px -1px rgba(0,0,0,.06); --font-body:'Manrope',system-ui,sans-serif; --font-heading:'Prata',serif; --gradient-accent:linear-gradient(135deg,#d4a373,#f4e1e8 65%); }
 * { box-sizing:border-box; }
@@ -131,10 +133,6 @@ footer { text-align:center; padding:2.2rem 1rem 3.2rem; font-size:.75rem; color:
 <main>
 	<div class="container">
 		<h1>Щенки на продажу</h1>
-		<p class="intro-text">
-			Открыт резерв на щенков йоркширского терьера от пары чемпионов <strong>Mittens Sky Veresk</strong> и <strong>MY SIMURAN GAEA ARIA</strong>. Дата рождения: <strong>05.04.2026</strong>. Малыши растут в заботе и любви, имеют великолепную анатомию, шелковистую шерсть, породный темперамент и полный пакет документов RKF / FCI.
-		</p>
-
 		<div class="cards-grid">
 			<div class="card">
 				<span class="badge">Щенок на продажу</span>
@@ -158,7 +156,7 @@ footer { text-align:center; padding:2.2rem 1rem 3.2rem; font-size:.75rem; color:
 
 			<div class="card">
 				<span class="badge">Щенок на продажу</span>
-				<video src="images/nefertiti.mp4" controls autoplay loop muted playsinline preload="metadata" aria-label="Видео щенка Lakshmi Love Nefertiti"></video>
+				<video src="images/nefertiti.mp4" controls loop muted playsinline preload="metadata" aria-label="Видео щенка Lakshmi Love Nefertiti"></video>
 				<h3>Lakshmi Love Nefertiti</h3>
 				<div class="meta">(Mittens Sky Veresk &amp; My Simuran Gaea Aria)</div>
 				<ul class="titles">

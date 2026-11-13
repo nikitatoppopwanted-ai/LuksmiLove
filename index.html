@@ -126,7 +126,7 @@
 		.gallery-masonry { column-count:4; column-gap:1.15rem; margin-top:2.6rem; }
 		.gallery-masonry figure { break-inside:avoid; position:relative; margin:0 0 1.15rem; border-radius:26px; overflow:hidden; background:#eee; box-shadow:var(--shadow-soft); cursor:default; --tilt:rotate(calc(var(--r,0) * 1deg)); transition:transform .8s ease, box-shadow .6s ease; }
 		.gallery-masonry figure:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 18px 46px -14px rgba(0,0,0,.32); }
-		.gallery-masonry img { width:100%; height:auto; display:block; transition:transform .85s ease, filter .85s ease, opacity .5s ease; filter:brightness(.95); opacity:0; }
+		.gallery-masonry img { width:100%; height:auto; display:block; transition:transform .85s ease, filter .85s ease, opacity .5s ease; filter:brightness(.95); opacity:1; }
 		.gallery-masonry figure::after { content:""; position:absolute; inset:0; background:linear-gradient(160deg, rgba(0,0,0,.35), rgba(0,0,0,0) 55%); mix-blend-mode:multiply; opacity:.35; transition:.6s ease; pointer-events:none; }
 		.gallery-masonry figure:hover img { transform:scale(1.08); filter:brightness(1); }
 		.gallery-masonry figure:hover::after { opacity:.15; }
@@ -239,7 +239,7 @@ header.site-header.scrolled {background:rgba(255,255,255,.9); box-shadow:0 8px 2
 	.features .card { min-width:75%; scroll-snap-align:start; }
 }
 /* Gallery enhanced load effect */
-.gallery-masonry figure { transition:transform .8s ease, box-shadow .6s ease, opacity .6s ease; opacity:0; }
+.gallery-masonry figure { transition:transform .8s ease, box-shadow .6s ease, opacity .6s ease; opacity:1; }
 .gallery-masonry figure.show { opacity:1; }
 /* Stats counter highlight */
 .stat h3 { position:relative; }
@@ -363,12 +363,12 @@ header.site-header.scrolled {background:rgba(255,255,255,.9); box-shadow:0 8px 2
 			<div class="section-inner">
 				<div class="divider" aria-hidden="true"></div>
 				<h2 id="gallery-title"><span class="paw-accent" aria-hidden="true">🐾</span>Галерея</h2>
-				<div class="gallery-masonry reveal" id="gallery-grid">
-					<figure><img src="images/photo_2025-10-08_11-29-58.jpg" alt="Йоркширский терьер" loading="lazy" decoding="async" class="blur-up"></figure>
-					<figure><img src="images/photo_2025-10-08_11-29-59.jpg" alt="Йоркширский терьер" loading="lazy" decoding="async" class="blur-up"></figure>
-					<figure><img src="images/123.jpg" alt="Йоркширский терьер" loading="lazy" decoding="async" class="blur-up"></figure>
-					<figure><img src="images/photo_2025-10-08_11-30-01.jpg" alt="Йоркширский терьер" loading="lazy" decoding="async" class="blur-up"></figure>
-					<figure><img src="images/photo_2025-10-08_11-30-02.jpg" alt="Йоркширский терьер" loading="lazy" decoding="async" class="blur-up"></figure>
+				<div class="gallery-masonry" id="gallery-grid">
+					<figure><img src="images/photo_2025-10-08_11-29-58.jpg" alt="Йоркширский терьер" decoding="async"></figure>
+					<figure><img src="images/photo_2025-10-08_11-29-59.jpg" alt="Йоркширский терьер" decoding="async"></figure>
+					<figure><img src="images/123.jpg" alt="Йоркширский терьер" decoding="async"></figure>
+					<figure><img src="images/photo_2025-10-08_11-30-01.jpg" alt="Йоркширский терьер" decoding="async"></figure>
+					<figure><img src="images/photo_2025-10-08_11-30-02.jpg" alt="Йоркширский терьер" decoding="async"></figure>
 				</div>
 			</div>
 		</section>
