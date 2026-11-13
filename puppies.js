@@ -39,7 +39,7 @@
     if (src) {
       if (puppy.media_type === 'video') {
         var video = document.createElement('video');
-        video.src = src;
+        video.src = src + (src.indexOf('#') === -1 ? '#t=0.001' : '');
         video.controls = true;
         video.loop = true;
         video.muted = true;
@@ -90,13 +90,16 @@
       });
       card.appendChild(ul);
     }
-а
+
     return card;
   }
 
   async function loadPuppies() {
     var container = document.getElementById('puppies') || document.querySelector('.cards-grid');
-    if (!container) return;
+    if (!container) {
+      console.error('Контейнер для щенков не найден на странице (.cards-grid или #puppies)');
+      return;
+    }
     if (!window.supabase || !window.supabase.createClient) {
       console.error('supabase-js не загружен');
       return;
@@ -110,10 +113,14 @@
       return;
     }
 
+    console.log('Успешно загруженные данные щенков:', result.data);
+
     container.querySelectorAll('[data-dynamic="1"]').forEach(function (n) { n.remove(); });
 
     var fragment = document.createDocumentFragment();
-    (result.data || []).forEach(function (puppy) { fragment.appendChild(buildCard(puppy)); });
+    (result.data || []).forEach(function (puppy) { 
+      fragment.appendChild(buildCard(puppy)); 
+    });
     container.prepend(fragment);
   }
 
